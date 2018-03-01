@@ -1,0 +1,92 @@
+<!--
+  Generated template for the UploadMediaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>uploadMedia</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <form (submit)="uploadMedia()">
+        <ion-input type="file" name="file" (change)="setFile($event)"></ion-input>
+        <br>
+        <input [(ngModel)]="media.title" type="text" name="title" placeholder="Title">
+        <br>
+        <textarea [(ngModel)]="media.description" type="text" name="description" placeholder="Description"></textarea>
+        <br>
+        <button type="submit">Upload</button>
+    </form>
+
+    <div padding class="signup-section">
+        <label>{{uploadStatus}}</label>
+    </div>
+
+    <!-- <ion-row>
+        <ion-col>
+            <div class="file-upload" (click)="chooseFile()">
+                <div *ngIf="!mediaSrc">
+                    <img id="camera-icon" src='assets/imgs/logo.png' width="80px">
+                    <p>Choose cover photo</p>
+                </div>
+                <img *ngIf="mediaSrc" id="img-preview" [src]="mediaSrc">
+            </div>
+            <form #uploadForm="ngForm">
+                <ion-list>
+                    <ion-item>
+                        <ion-label color="primary">
+                            <strong>Journal title:</strong>
+                        </ion-label>
+                        <ion-input type="text" name="title" ngModel required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-textarea placeholder="Enter a description"></ion-textarea>
+                    </ion-item>
+                </ion-list>
+
+                <ion-row>
+                    <ion-col text-center>
+                        <button ion-button class="button" (click)="uploadMedia(uploadForm)" [disabled]="!uploadForm.valid">Create</button>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </ion-col>
+    </ion-row> -->
+
+
+    <!-- <ion-card>
+
+        <div class="Upload" (click)="chooseFile()">
+            <img *ngIf="hasMedia" id="preView" src="assets/imgs/logo.png">
+            <div class="text" *ngIf="!hasMedia">
+                <ion-icon name="add"></ion-icon>
+                <p>Choose cover photo</p>
+            </div>
+        </div>
+
+        <ion-card-content style="display:flex">
+            <ion-icon name="contact" style="color: #55acee"></ion-icon>
+            <strong color="#55acee">Media title:</strong>
+            <ion-input type="text" name="title" clearInput=true placeholder="Title here" required></ion-input>
+        </ion-card-content>
+
+        <ion-card-content>
+            <ion-icon name="contact" style="color: #d03e84"></ion-icon>
+            <strong color="#d03e84">Media description:</strong>
+            <ion-textarea placeholder="Enter a description"></ion-textarea>
+        </ion-card-content>
+    </ion-card> -->
+
+    <button ion-button (click)="uploadMedia()" class="uploadBtn" block>
+        Upload
+        <ion-icon name="md-cloud-upload" style="font-size:2.4rem; padding-left:10px;"></ion-icon>
+    </button>
+
+</ion-content>

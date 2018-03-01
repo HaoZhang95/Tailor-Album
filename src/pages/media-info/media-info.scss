@@ -1,0 +1,82 @@
+.segment-ios .segment-button{
+    line-height: 2rem;
+    height: 2.2rem;
+}
+ion-app.ios [padding]{
+    padding-top: 0px;
+}
+form, input, optgroup, select{
+    font-size: 1.6rem;
+}
+.text-input-ios{
+    margin: 11px 8px;
+}
+.statistics{
+    ion-note {
+        font-size: 12px;
+        align-self: flex-start;
+        margin-top: 14px;
+    }
+}
+ion-footer {
+    .addComment{
+        width: 96%;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+}
+ion-fab {
+    // position: relative;
+    top: 3px;
+    .fab{
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+    .fab-close-icon {
+        line-height: 40px;
+    }
+    ion-fab-list{
+        min-width: 40px;
+        min-height: 40px;
+    }
+}
+.chips{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block !important;
+    ion-chip {
+        float: right;
+        .button {
+            width: 24px ;
+            height: 24px ;
+        }
+        .button-ios {
+            font-size: 1.3rem ;
+        }
+    }
+    .chip-ios {
+        border-radius: 16px;
+        height: 24px;
+        font-size: 14px;
+        line-height: 24px;
+        color: rgba(0, 0, 0, 0.67);
+        background: rgba(0, 0, 0, 0.12);
+        margin: 2px;
+    }
+}
+.chips:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.card-content-ios {
+    padding: 0px 16px 14px;
+    font-size: 1.4rem;
+    line-height: 1.4;
+}
+.addIcon{
+    right: 60px !important;
+}

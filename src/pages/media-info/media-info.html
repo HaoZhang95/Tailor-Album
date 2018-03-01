@@ -1,0 +1,164 @@
+<!--
+  Generated template for the MediaInfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- chip config fabbutton item-reorder item-sliding Label
+    ModalController option PopoverController range 英文版
+    中文版 round-btn badges
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-fab right>
+            <button ion-fab color="light" (click)='showAddIcon = !showAddIcon'>
+                <ion-icon name="md-share"></ion-icon>
+            </button>
+            <ion-fab-list side="left">
+                <button ion-fab>
+                    <ion-icon name="logo-facebook"></ion-icon>
+                </button>
+                <button ion-fab>
+                    <ion-icon name="logo-twitter"></ion-icon>
+                </button>
+                <button ion-fab>
+                    <ion-icon name="logo-vimeo"></ion-icon>
+                </button>
+                <button ion-fab>
+                    <ion-icon name="logo-googleplus"></ion-icon>
+                </button>
+            </ion-fab-list>
+        </ion-fab>
+
+        <ion-fab right class="addIcon" *ngIf="showAddIcon">
+            <button ion-fab color="light">
+                <ion-icon name="add"></ion-icon>
+            </button>
+            <ion-fab-list side="left">
+                <button ion-fab (click)='addTag()'>
+                    <ion-icon name="md-pricetags"></ion-icon>
+                </button>
+                <button ion-fab (click)='addRating()'>
+                    <ion-icon name="md-stats"></ion-icon>
+                </button>
+                <button ion-fab (click)='deleteMedia()' *ngIf="isOwner">
+                    <ion-icon name="md-trash"></ion-icon>
+                </button>
+                <!-- <button ion-fab>
+                    <ion-chip>
+                        <ion-icon name="md-pricetags"></ion-icon>
+                    </ion-chip>
+                </button> -->
+            </ion-fab-list>
+        </ion-fab>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="cards-bg">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-card>
+        <ion-item>
+            <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':userId}">
+                <img src="assets/imgs/profile.jpg">
+            </ion-avatar>
+
+            <h2>{{authorInfo.username}}</h2>
+            <p>{{mediaItem.time_added | date:'h:mm a, d/M/yy'}}</p>
+            <button ion-button item-end outline icon-start (tap)='addToFavourite()' *ngIf="!isLiked">
+                <ion-icon name='star'></ion-icon>Like
+            </button>
+
+            <button ion-button item-end icon-start (tap)='cancelFavourite()' *ngIf="isLiked">
+                <ion-icon name='star'></ion-icon>Liked
+            </button>
+        </ion-item>
+
+        <div>
+            <img [src]="config.fileUrl + mediaItem.filename ">
+            <div class='chips' style="display:inline-block">
+                <ion-chip #chipItem right *ngFor="let item of tags; let i=index" (press)='showDeleteTag = !showDeleteTag;'>
+                    <ion-label>{{item.tag}}</ion-label>
+                    <button ion-button (click)="deleteTag(item)" [hidden]="!showDeleteTag">
+                        <ion-icon name="close"></ion-icon>
+                    </button>
+                </ion-chip>
+            </div>
+
+            <ion-card-content>
+                <h2>{{mediaItem.title}}</h2>
+                <p>{{mediaItem.description}}</p>
+            </ion-card-content>
+        </div>
+
+        <div padding>
+            <ion-segment [(ngModel)]="statistics">
+                <ion-segment-button value="likes" (tap)='showFooter = false'>
+                    Likes
+                    <span *ngIf="likesBy.length">({{likesBy.length}})</span>
+                </ion-segment-button>
+                <ion-segment-button value="comments" (tap)='showFooter = true'>
+                    Comments
+                    <span *ngIf="comments.length">({{comments.length}})</span>
+                </ion-segment-button>
+                <ion-segment-button value="rating" (tap)='showFooter = false'>
+                    Rating
+                    <span *ngIf="avgRating">({{avgRating}}/5)</span>
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+
+        <div [ngSwitch]="statistics" class="statistics">
+            <ion-list *ngSwitchCase="'likes'">
+                <ion-item *ngFor="let item of likesBy">
+                    <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':item.user_id}">
+                        <img src="assets/imgs/d2.png">
+                    </ion-avatar>
+                    <h2>{{item.username}}</h2>
+                    <p>{{item.email}}</p>
+                </ion-item>
+            </ion-list>
+
+            <ion-list *ngSwitchCase="'comments'">
+                <ion-item *ngFor="let item of comments">
+                    <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':item.user_id}">
+                        <img src="assets/imgs/d2.png">
+                    </ion-avatar>
+                    <h2>{{item.username}}</h2>
+                    <p>{{item.comment}}</p>
+                    <ion-note item-end>{{item.time_added}}</ion-note>
+                </ion-item>
+            </ion-list>
+            <ion-list *ngSwitchCase="'rating'">
+                <ion-item *ngFor="let item of ratingBy">
+                    <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':item.user_id}">
+                        <img src="assets/imgs/d2.png">
+                    </ion-avatar>
+                    <h2>{{item.username}}</h2>
+                    <p>{{item.rating}}</p>
+                    <!--<ion-note item-end>1:12 pm</ion-note> -->
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-card>
+
+</ion-content>
+
+<ion-footer *ngIf="showFooter">
+    <div class="addComment">
+        <ion-toolbar>
+            <ion-input type="text" [(ngModel)]="comment"></ion-input>
+            <ion-buttons end>
+                <button ion-button icon-right color="royal" (click)='postComments()'>
+                    Send
+                    <ion-icon name="send"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-toolbar>
+    </div>
+</ion-footer>

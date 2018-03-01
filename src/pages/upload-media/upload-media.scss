@@ -1,0 +1,38 @@
+page-upload-media {
+    .Upload {
+        width: 90%;
+        height: 200px;
+        margin: 20px auto;
+        text-align: center;
+        border: 1px dashed grey;
+        border-radius: 10px;
+
+        #preView {
+          height: 200px;
+          border-radius: 10px;
+        }
+        .text{
+            margin: 65px auto;
+            ion-icon{
+                font-size: 3.4rem;
+            }
+        }
+      }
+
+      ion-card-content{
+          strong{
+              line-height: 44px;
+              font-size: 1.6rem;
+          }
+          ion-icon{
+              font-size: 2.4rem;
+              margin: 9px 10px 0px 0px;
+          }
+      }
+
+    .uploadBtn{
+        width: 80%;
+        margin: 0px auto;
+    }
+
+}

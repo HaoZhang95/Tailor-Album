@@ -1,0 +1,63 @@
+<!--
+  Generated template for the homePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button icon-only [navPush]='UploadMediaPage'>
+                <ion-icon name="camera"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-searchbar (tap)="goSearchPage()" clearInput=true ></ion-searchbar>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content class="social-cards">
+    <ion-card *ngFor="let item of list">
+        <ion-item>
+            <ion-avatar item-end [navPush]='AuthorInfoPage' [navParams]="{'userId':item['user_id']}">
+                <img src="assets/imgs/profile.jpg">
+            </ion-avatar>
+            <h2>{{item.username}}</h2>
+            <p>{{item.time_added | date:'h:mm a, d/M/yy'}}</p>
+        </ion-item>
+
+        <div [navPush]='MediaInfoPage' [navParams]="{'fileId':item['file_id'], 'userId':item['user_id']}">
+            <!-- <img [src]="config.fileUrl + item.filename "> -->
+            <img [src]="config.fileUrl + (item?.filename | thumbnail: 'small')">
+
+            <ion-card-content>
+                <h2>{{item.title}}</h2>
+                <p>{{item.description}}</p>
+            </ion-card-content>
+        </div>
+
+        <ion-row>
+            <ion-col>
+                <button ion-button color="primary" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'likes','fileId':item['file_id'], 'userId':item['user_id']}">
+                    <ion-icon name='thumbs-up'></ion-icon>
+                    {{item.likesNum}} Likes
+                </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button color="primary" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'comments','fileId':item['file_id'], 'userId':item['user_id']}">
+                    <ion-icon name='text'></ion-icon>
+                    {{item.commentsNum}} Comments
+                </button>
+            </ion-col>
+            <ion-col align-self-center text-center>
+                <button ion-button color="primary" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'rating','fileId':item['file_id'], 'userId':item['user_id']}">
+                    <ion-icon name='share'></ion-icon>
+                    Rating
+                </button>
+            </ion-col>
+        </ion-row>
+
+    </ion-card>
+</ion-content>

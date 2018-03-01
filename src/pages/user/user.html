@@ -1,0 +1,83 @@
+<!--
+  Generated template for the UserPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>User</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <ion-card>
+
+        <div class="login" *ngIf="!userinfo">
+            <div class="userimg">
+                <img src="assets/imgs/user.png" alt="">
+            </div>
+            <div class="login_reg">
+                <button ion-button [navPush]='LoginPage'>Sign In</button>
+                <button ion-button [navPush]='RegisterPage'>Sign Up</button>
+            </div>
+        </div>
+        <ion-list inset *ngIf="userinfo">
+            <ion-item [navPush]='PersonalPage'>
+                <ion-avatar item-left>
+                    <img src="assets/imgs/profile.jpg" onerror="this.src='assets/imgs/user.png'" class="avatar">
+                </ion-avatar>
+                <h2>Username:{{userinfo.user.username}}</h2>
+                <p>Email:{{userinfo.user.email}}</p>
+                <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+            </ion-item>
+        </ion-list>
+
+        <!-- <ion-card-content>
+            <ion-card-title>
+                张三
+            </ion-card-title>
+            <p>
+                假装这里有title
+            </p>
+        </ion-card-content> -->
+
+        <ion-item-divider></ion-item-divider>
+
+        <ion-item (click)='goEditUserPage()'>
+            <ion-icon name='md-ribbon' item-start style="color: #6bf3af"></ion-icon>
+            Update Info
+        </ion-item>
+        <ion-item [navPush]='MyFavouritesPage'>
+            <ion-icon name='md-star' item-start style="color: #f3df6b"></ion-icon>
+            Favourites
+            <ion-badge item-end>{{likesNum}}</ion-badge>
+        </ion-item>
+        <ion-item>
+            <ion-icon name='md-cloud-upload' item-start style="color: #5c78f1"></ion-icon>
+            Uploads
+            <ion-badge item-end>{{uploadsNum}}</ion-badge>
+        </ion-item>
+        <ion-item>
+            <ion-icon name='md-pricetags' item-start style="color: #ee9d06"></ion-icon>
+            Rating
+            <ion-badge item-end>{{ratingNum}}</ion-badge>
+        </ion-item>
+
+        <ion-item-divider></ion-item-divider>
+        <ion-item>
+            <ion-icon name='musical-notes' item-start style="color: #d03e84"></ion-icon>
+            Uploads
+            <ion-badge item-end>66</ion-badge>
+        </ion-item>
+
+        <ion-item>
+            <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+            Followers
+            <ion-badge item-end>260k</ion-badge>
+        </ion-item>
+
+    </ion-card>
+</ion-content>

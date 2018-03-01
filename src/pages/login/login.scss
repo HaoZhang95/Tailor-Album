@@ -1,0 +1,33 @@
+// .loginBtn{
+//     width: 80%;
+//     margin: 0px auto;
+// }
+// .listEnd {
+//     color: #666;
+//     font-size: 1.4rem;
+// }
+// ion-label[fixed] {
+//     // flex: 0 0 60px;
+//     // width: 60px;
+//     // min-width: 60px;
+//     // max-width: 100px;
+// }
+
+.ios, .md {
+    .signup-section {
+      text-align: center;
+    }
+
+    .item-input ion-label {
+      width: 45px;
+    }
+
+    .signup-section label {
+      opacity: .5;
+    }
+
+    .social-btns ion-icon {
+      margin-left: 10px;
+      font-size: 26px;
+    }
+  }
