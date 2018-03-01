@@ -1,2 +1,3 @@
-# ionic3图片上传应用
-for period 2
+# ionic3 Application
+for period 3
+Init ReadMe
