@@ -1,25 +1,49 @@
-.login{
-    padding: 1rem;
-    .userimg{
-        text-align: center;
-        img{
-            width: 5rem;
-            height: 5rem;
-            border-radius: 50%;
-            margin: 0 auto;
+page-user {
+
+    .login{
+        padding: 1rem;
+        .userimg{
+            text-align: center;
+            img{
+                width: 8rem;
+                height: 8rem;
+                border-radius: 50%;
+                margin: 16px auto;
+            }
+        }
+        .login_reg {
+            text-align: center
+        }
+        h2 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.4em;
+            font-weight: lighter;
+            color: #fff;
+            text-align: center;
+        }
+        ion-icon {
+            float: right;
+            //margin-left: 16px;
+            font-size: 2.5em;
+            color: white;
+            //margin-top: 16px;
         }
     }
-    .login_reg {
-        text-align: center
+    .upperArea {
+        background: linear-gradient(360deg, #4E5EFC  ,#4EE7FC);
     }
-}
-.list-ios[inset]{
-    margin: 0px !important;
-}
-ion-item-divider {
-    min-height: .2rem;
-}
-.item-ios ion-avatar ion-img, .item-ios ion-avatar img{
-    width: 50px;
-    height: 50px;
+    .lowerArea {
+        background: linear-gradient(360deg, #4E5EFC  ,#4EE7FC);
+    }
+    .list-ios[inset]{
+        margin: 0px !important;
+    }
+    ion-item-divider {
+        min-height: .2rem;
+    }
+    .item-ios ion-avatar ion-img, .item-ios ion-avatar img{
+        width: 50px;
+        height: 50px;
+    }
+
 }

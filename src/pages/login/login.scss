@@ -13,21 +13,67 @@
 //     // max-width: 100px;
 // }
 
-.ios, .md {
-    .signup-section {
-      text-align: center;
-    }
 
-    .item-input ion-label {
-      width: 45px;
-    }
 
-    .signup-section label {
-      opacity: .5;
-    }
 
-    .social-btns ion-icon {
-      margin-left: 10px;
-      font-size: 26px;
-    }
-  }
+
+// .ios, .md {
+//     .signup-section {
+//       text-align: center;
+//     }
+
+//     .item-input ion-label {
+//       width: 45px;
+//     }
+
+//     .signup-section label {
+//       opacity: .5;
+//     }
+
+//     .social-btns ion-icon {
+//       margin-left: 10px;
+//       font-size: 26px;
+//     }
+//   }
+
+page-login {
+
+    .background {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(360deg, #4E5EFC  ,#4EE7FC);
+      }
+      .scroll-content {
+        text-align: center;
+      }
+      ion-card.card {
+        box-shadow: none;
+        background: rgba(230, 230, 230, 0.6px);
+        border-radius: 10px;
+        z-index: 100;
+      }
+      .item {
+        background: rgba(230, 230, 230, 0px);
+        border: medium none;
+      }
+      ion-input {
+        border-bottom: #f53d3d solid 1px;
+      }
+
+      h1{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 3em;
+        font-weight: lighter;
+        color: #fff;
+      }
+
+      ion-icon {
+          display: flex;
+          margin-left: 16px;
+          font-size: 2.5em;
+          color: white;
+          margin-top: 16px;
+      }
+
+}
+

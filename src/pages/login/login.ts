@@ -33,12 +33,8 @@ export class LoginPage {
 
     }
 
-    fbLogin() {
-
-    }
-
-    googleLogin() {
-
+    goBack () {
+        this.navCtrl.pop();
     }
 
     launchSignup() {
@@ -47,7 +43,7 @@ export class LoginPage {
 
     doLogin() {
         if (this.userinfo.username.length < 6) {
-            alert('账户格式不对.');
+            alert('Wrong format.');
         } else {
             let api = '/login';
             this.httpService.doPost(api, this.userinfo).subscribe((data) => {

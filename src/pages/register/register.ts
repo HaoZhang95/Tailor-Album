@@ -30,6 +30,14 @@ export class RegisterPage {
 
     }
 
+    goBack () {
+        this.navCtrl.pop();
+    }
+
+    launchSignIn() {
+        this.navCtrl.push(LoginPage);
+    }
+
     doRegister() {
         let api = '/users/username/' + this.username;
         console.log(this.username);
