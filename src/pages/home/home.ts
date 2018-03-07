@@ -59,7 +59,8 @@ export class HomePage {
                     this.httpService.doGet(api02).subscribe((data) => {
                         this.list[index].commentsNum = data.length;
                     }, (err) => {
-                        alert(err);
+                        console.log(err);
+
                     });
 
                     const api03 = '/users/' + this.list[index].user_id;

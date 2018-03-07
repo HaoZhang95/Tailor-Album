@@ -61,7 +61,8 @@ export class LoginPage {
                         break;
                 }
             }, (err) => {
-                alert(err);
+                console.log(err);
+
             })
         }
     }

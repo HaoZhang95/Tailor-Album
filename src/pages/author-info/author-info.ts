@@ -61,7 +61,8 @@ export class AuthorInfoPage {
                     console.log(data);
                     this.uploads.push(data);
                 }, (err) => {
-                    alert(err);
+                    console.log(err);
+
                 });
             }
         }, (err) => {

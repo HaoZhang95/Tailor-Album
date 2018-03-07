@@ -64,7 +64,8 @@ export class RegisterPage {
                         console.log(data);
 
                     }, (err) => {
-                        alert(err);
+                        console.log(err);
+
                     })
 
 
