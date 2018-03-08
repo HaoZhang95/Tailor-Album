@@ -30,6 +30,7 @@ import { AuthorInfoPage } from '../pages/author-info/author-info';
 import { UploadMediaPage } from '../pages/upload-media/upload-media';
 import { Camera } from '@ionic-native/camera';
 import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
+import { CartPage } from '../pages/cart/cart';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
         MyFavouritesPage,
         AuthorInfoPage,
         UploadMediaPage,
-        ThumbnailPipe
+        ThumbnailPipe,
+        CartPage
     ],
     imports: [
         BrowserModule,
@@ -74,6 +76,7 @@ import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
         MyFavouritesPage,
         AuthorInfoPage,
         UploadMediaPage,
+        CartPage
     ],
     providers: [
         StatusBar,

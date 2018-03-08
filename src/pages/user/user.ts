@@ -42,11 +42,10 @@ export class UserPage {
 
     }
 
-    ionViewWillEnter() {
-        let userinfo = this.storage.getItem('userinfo');
-        this.userinfo = ((userinfo && userinfo.user.username) ? userinfo : null);
 
-        this.getStatisticsData();
+    ionViewWillEnter() {
+        this.userinfo = this.storage.getItem('userinfo');
+        this.userinfo = ((this.userinfo && this.userinfo.user.username) ? this.userinfo : null);
     }
 
     goEditUserPage() {
@@ -54,39 +53,38 @@ export class UserPage {
     }
 
     getStatisticsData() {
-        const api01 = '/favourites';
-        this.httpService.doGetWithToken(api01).subscribe((data) => {
-            console.log(data);
-            this.likesNum = data.length;
-        }, (err) => {
-            console.log(err);
-        });
 
-        const api02 = '/media/user/' + this.userinfo.user['user_id'];
-        this.httpService.doGetWithToken(api02).subscribe((data) => {
-            console.log(data);
-            this.uploadsNum = data.length;
-        }, (err) => {
-            console.log(err);
-        });
+        if (this.userinfo) {
+            const api01 = '/favourites';
+            this.httpService.doGetWithToken(api01).subscribe((data) => {
+                console.log(data);
+                this.likesNum = data.length;
+            }, (err) => {
+                console.log(err);
+            });
 
-        const api03 = '/ratings';
-        this.httpService.doGetWithToken(api03).subscribe((data) => {
-            console.log(data);
-            this.ratingList = [];
-            for (let index = 0; index < data.length; index++) {
-                if (data[index].user_id == this.userinfo.user.user_id) {
-                    this.ratingList.unshift(data[index]);
+            const api02 = '/media/user/' + this.userinfo.user['user_id'];
+            this.httpService.doGetWithToken(api02).subscribe((data) => {
+                console.log(data);
+                this.uploadsNum = data.length;
+            }, (err) => {
+                console.log(err);
+            });
+
+            const api03 = '/ratings';
+            this.httpService.doGetWithToken(api03).subscribe((data) => {
+                console.log(data);
+                this.ratingList = [];
+                for (let index = 0; index < data.length; index++) {
+                    if (data[index].user_id == this.userinfo.user.user_id) {
+                        this.ratingList.unshift(data[index]);
+                    }
                 }
-            }
-            this.ratingNum = this.ratingList.length;
-            console.log(this.ratingList);
-        }, (err) => {
-            console.log(err);
-        });
-
-
-
-
+                this.ratingNum = this.ratingList.length;
+                console.log(this.ratingList);
+            }, (err) => {
+                console.log(err);
+            });
+        }
     }
 }

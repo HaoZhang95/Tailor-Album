@@ -1,0 +1,82 @@
+<!--
+  Generated template for the CartPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>购物车</ion-title>
+
+        <ion-buttons end *ngIf="edit" >
+            <button ion-button (tap)='edit=!edit'>完成</button>
+        </ion-buttons>
+        <ion-buttons end *ngIf="!edit" >
+            <button ion-button (tap)='edit=!edit'>编辑</button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <!-- 加载加载的圆圈 -->
+    <!-- <div class="cartSpinner" *ngIf="cartData.length == 0" >
+        <ion-spinner></ion-spinner>
+    </div> -->
+
+    <dl class="cart_list" *ngFor="let item of cartData" >
+        <dt>
+            <ion-checkbox color='danger' [(ngModel)]="item.checked" (ionChange)='changeCart()' ></ion-checkbox>
+            <img [src]="item.product_pic">
+        </dt>
+
+        <dd>
+            <h2 class="cart_title">{{item.product_title}}</h2>
+            <div class="cart_info">
+                <div class="cart_price">
+                    {{item.product_price}}元
+                </div>
+                <div class="cart_num">
+                    <div class="input_left" (tap)='decCount(item)'>-</div>
+                    <div class="input_center">
+                        <!-- 双向数据绑定到这个item下面的数量上,增和删的时候直接传入item就能对应上 -->
+                        <input type="text" readonly='randomly' [(ngModel)]="item.product_count"  name='num' id='num'>
+                    </div>
+                    <div class="input_right" (tap)='incCount(item)'>+</div>
+                </div>
+            </div>
+        </dd>
+    </dl>
+
+</ion-content>
+
+<!-- 内容区下面的结算bar -->
+<ion-footer>
+    <ion-toolbar *ngIf="!edit" >
+        <div class="allprice">
+            <!-- checkbox用的是ionChnage事件!!!, 但是这里只能使用click -->
+                <ion-checkbox color='danger' [(ngModel)]="checkedAll" (click)='changeAll()'></ion-checkbox>
+            全选  <strong>合计:{{price}}元</strong>
+        </div>
+        <ion-buttons ion-button end>
+            <button ion-button color='danger' (tap)='goPay()'>
+                去结算
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="edit" >
+        <div class="allprice">
+            <!-- checkbox用的是ionChnage事件!!!, 但是这里只能使用click -->
+                <ion-checkbox color='danger' [(ngModel)]="checkedAll" (click)='changeAll()'></ion-checkbox>
+            全选  <strong>合计:{{price}}元</strong>
+        </div>
+        <ion-buttons ion-button end>
+            <button ion-button color='danger' (tap)='editToDelete()'>
+                删除
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

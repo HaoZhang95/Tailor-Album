@@ -15,6 +15,7 @@
 
 <ion-content padding>
 
+    <!--
     <form (submit)="uploadMedia()">
         <ion-input type="file" name="file" (change)="setFile($event)"></ion-input>
         <br>
@@ -29,7 +30,8 @@
         <label>{{uploadStatus}}</label>
     </div>
 
-    <!-- <ion-row>
+
+    <ion-row>
         <ion-col>
             <div class="file-upload" (click)="chooseFile()">
                 <div *ngIf="!mediaSrc">
@@ -58,13 +60,13 @@
                 </ion-row>
             </form>
         </ion-col>
-    </ion-row> -->
+    </ion-row>
+    -->
 
-
-    <!-- <ion-card>
+    <ion-card>
 
         <div class="Upload" (click)="chooseFile()">
-            <img *ngIf="hasMedia" id="preView" src="assets/imgs/logo.png">
+            <img *ngIf="hasMedia" id="preView" [src]="mediaSrc">
             <div class="text" *ngIf="!hasMedia">
                 <ion-icon name="add"></ion-icon>
                 <p>Choose cover photo</p>
@@ -82,11 +84,23 @@
             <strong color="#d03e84">Media description:</strong>
             <ion-textarea placeholder="Enter a description"></ion-textarea>
         </ion-card-content>
-    </ion-card> -->
+    </ion-card>
+
+
+    <!-- <form (submit)="uploadMedia()">
+            <ion-input type="file" name="file" (change)="setFile($event)"></ion-input>
+
+        </form> -->
+
 
     <button ion-button (click)="uploadMedia()" class="uploadBtn" block>
         Upload
         <ion-icon name="md-cloud-upload" style="font-size:2.4rem; padding-left:10px;"></ion-icon>
     </button>
+
+
+    <div padding class="signup-section">
+        <label>{{uploadStatus}}</label>
+    </div>
 
 </ion-content>

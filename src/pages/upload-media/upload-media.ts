@@ -1,4 +1,4 @@
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ToolsProvider } from '../../providers/tools/tools';
@@ -28,8 +28,17 @@ export class UploadMediaPage {
     };
     public uploadStatus: String;
 
+    private mediaSrc: string;
+    private toast: any;
+    private imageMIME: any = {
+        'jpeg': 'image/jpeg',
+        'jpg': 'image/jpeg',
+        'png': 'image/png'
+    }
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
-        public actionSheetCtrl: ActionSheetController, public tools: ToolsProvider, public httpService: HttpServiceProvider) {
+        public actionSheetCtrl: ActionSheetController, public tools: ToolsProvider, public httpService: HttpServiceProvider,
+        private camera: Camera) {
     }
 
     setFile(evt) {
@@ -65,17 +74,38 @@ export class UploadMediaPage {
                     icon: 'camera',
                     handler: () => {
                         this.tools.uploadFromCamera();
+
                     }
                 }, {
                     text: 'From gallery',
                     icon: 'images',
                     handler: () => {
-                        this.tools.uploadFromGallery();
+                        // this.tools.uploadFromGallery();
+                        this.openGallery()
                     }
                 }
             ]
         });
         actionSheet.present();
+    }
+
+
+    openGallery = () => {
+        let cameraOptions = {
+            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+            destinationType: this.camera.DestinationType.FILE_URI,
+            mediaType: this.camera.MediaType.PICTURE,
+            quality: 100,
+            targetWidth: 1000,
+            targetHeight: 1000
+        }
+        this.camera.getPicture(cameraOptions)
+            .then(file_uri => {
+                console.log(file_uri);
+
+                this.mediaSrc = file_uri
+            },
+            err => console.log(err));
     }
 
 }

@@ -24,7 +24,8 @@
             <ion-avatar item-end [navPush]='AuthorInfoPage' [navParams]="{'userId':item['user_id']}">
                 <img src="assets/imgs/profile.jpg">
             </ion-avatar>
-            <h2>{{item.username}}</h2>
+
+            <h2 *ngIf="item.username" >{{item.username}}</h2>
             <p>{{item.time_added | date:'h:mm a, d/M/yy'}}</p>
         </ion-item>
 

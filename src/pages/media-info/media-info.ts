@@ -44,6 +44,7 @@ export class MediaInfoPage {
     public avgRating = 0;
     public comeFrom = '';
     public showFooter = true;
+    public userinfo;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public config: ConfigProvider,
         public httpService: HttpServiceProvider, public tools: ToolsProvider, public storage: StorageProvider,
@@ -53,19 +54,30 @@ export class MediaInfoPage {
         this.userId = this.navParams.get('userId');
         this.comeFrom = this.navParams.get('comeFrom');
         this.statistics = ((this.comeFrom) ? this.comeFrom : 'comments');
-         this.showFooter = ((this.statistics == 'comments')? true:false);
+        this.showFooter = ((this.statistics == 'comments') ? true : false);
 
-        this.getUserInfoByUserId(this.userId);
+
+
+    }
+
+    ionViewWillEnter() {
+        this.userinfo = this.storage.getItem('userinfo');
+        console.log(this.userinfo);
+        if (this.userinfo) {
+            this.getUserInfoByUserId(this.userId);
+            this.validateIsLiked();
+        }
+    }
+
+    ionViewDidLoad() {
+
         this.getMediaById();
         this.getCommentsById();
-        this.validateIsLiked();
+
         this.getTags();
         this.getLikesData();
         this.getRatingData();
-    }
-    ionViewDidLoad() {
-        let userinfo = this.storage.getItem('userinfo');
-        this.isOwner = ((userinfo && this.userId == userinfo['user_id']) ? true : false);
+        this.isOwner = ((this.userinfo && this.userId == this.userinfo['user_id']) ? true : false);
     }
 
     addRating() {
@@ -172,7 +184,6 @@ export class MediaInfoPage {
                     console.log(err);
                 });
             }
-            console.log(this.likesBy);
 
         }, (err) => {
             console.log(err);
@@ -233,7 +244,6 @@ export class MediaInfoPage {
     getTags() {
         let api = '/tags/file/' + this.fileId;
         this.httpService.doGet(api).subscribe((data) => {
-            console.log(data);
             this.tags = data;
         }, (err) => {
             alert(err);
@@ -241,15 +251,21 @@ export class MediaInfoPage {
     }
 
     addToFavourite() {
-        const api = '/favourites';
-        this.httpService.doPostWithToken(api, { 'file_id': this.fileId }).subscribe((data) => {
-            console.log(data);
-            this.isLiked = true;
-            this.getLikesData();
-        }, (err) => {
-            console.log(err);
-            this.isLiked = false;
-        });
+        if (this.userinfo) {
+            const api = '/favourites';
+            this.httpService.doPostWithToken(api, { 'file_id': this.fileId }).subscribe((data) => {
+                console.log(data);
+                this.isLiked = true;
+                this.getLikesData();
+            }, (err) => {
+                console.log(err);
+                this.isLiked = false;
+            });
+        } else {
+            this.navCtrl.push(LoginPage, { 'comeFrom': 'mediaInfo' });
+            return;
+        }
+
     }
 
     cancelFavourite() {
@@ -302,7 +318,6 @@ export class MediaInfoPage {
     getMediaById() {
         let api = '/media/' + this.fileId;
         this.httpService.doGet(api).subscribe((data) => {
-            console.log(data);
             this.mediaItem = data;
         }, (err) => {
             alert(err);
@@ -316,12 +331,18 @@ export class MediaInfoPage {
             for (let comment of this.comments) {
                 let timeAdded = new Date(comment.time_added);
                 comment.time_added = this.postTimePipe.transform(timeAdded.getTime(), "mediaInfo")
-                let api = '/users/' + comment.user_id;
-                this.httpService.doGetWithToken(api).subscribe((data) => {
-                    comment.username = data.username;
-                }, (err) => {
-                    console.log(err);
-                });
+
+                if (this.userinfo) {
+                    let api = '/users/' + comment.user_id;
+                    this.httpService.doGetWithToken(api).subscribe((data) => {
+                        comment.username = data.username;
+                    }, (err) => {
+                        console.log(err);
+                    });
+                } else {
+                    comment.username = "Anonymous";
+                }
+
             }
             this.comments.reverse();
         }, (err) => {

@@ -26,17 +26,22 @@ export class AuthorInfoPage {
     public uploads = [];
     public favourites = [];
     public MyFavouritesPage = MyFavouritesPage;
+    public userinfo;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider,
         public httpService: HttpServiceProvider, public tools: ToolsProvider) {
+
         this.userId = this.navParams.get('userId');
 
-        this.getAuthorInfo(this.userId);
         this.getStatisticsData(this.userId);
     }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad AuthorInfoPage');
+        this.userinfo = this.storage.getItem('userinfo');
+        if (this.userinfo) {
+            this.getAuthorInfo(this.userId);
+        }
     }
 
     getAuthorInfo(userId) {

@@ -25,11 +25,12 @@ export class HomePage {
     public userinfo;
 
     constructor(public navCtrl: NavController, public config: ConfigProvider,
-        public httpService: HttpServiceProvider, public storage: StorageProvider,public thumbnailPipe: ThumbnailPipe) {
-        this.userinfo = this.storage.getItem('userinfo');
+        public httpService: HttpServiceProvider, public storage: StorageProvider, public thumbnailPipe: ThumbnailPipe) {
+
     }
 
     ionViewWillEnter() {
+        this.userinfo = this.storage.getItem('userinfo');
         this.getMediaData();
     }
 
@@ -41,38 +42,35 @@ export class HomePage {
         let api = '/media';
         this.httpService.doGet(api).subscribe((data) => {
             this.list = data;
-            console.log(this.list);
+            for (let index = 0; index < data.length; index++) {
+                let fileId = data[index].file_id;
+                const api01 = '/favourites/file/' + fileId;
+                this.likesData = [];
+                this.httpService.doGet(api01).subscribe((data) => {
+                    this.list[index].likesNum = data.length;
+                }, (err) => {
+                    console.log(err);
+                });
 
-            if (this.userinfo) {
-                for (let index = 0; index < data.length; index++) {
-                    let fileId = data[index].file_id;
-                    const api01 = '/favourites/file/' + fileId;
-                    this.likesData = [];
-                    this.httpService.doGet(api01).subscribe((data) => {
-                        this.list[index].likesNum = data.length;
-                    }, (err) => {
-                        console.log(err);
-                    });
+                const api02 = '/comments/file/' + fileId;
+                this.commentData = [];
+                this.httpService.doGet(api02).subscribe((data) => {
+                    this.list[index].commentsNum = data.length;
+                }, (err) => {
+                    console.log(err);
 
-                    const api02 = '/comments/file/' + fileId;
-                    this.commentData = [];
-                    this.httpService.doGet(api02).subscribe((data) => {
-                        this.list[index].commentsNum = data.length;
-                    }, (err) => {
-                        console.log(err);
+                });
 
-                    });
-
-                    const api03 = '/users/' + this.list[index].user_id;
+                const api03 = '/users/' + this.list[index].user_id;
+                if (this.userinfo) {
                     this.httpService.doGetWithToken(api03).subscribe((data) => {
                         this.list[index].username = data.username;
                     }, (err) => {
-                        alert(err);
+                        console.log(err);
                     });
                 }
             }
-        }, (err) => {
-            alert(err);
+            console.log(this.list);
         });
     }
 }
