@@ -1,8 +1,4 @@
 page-media-info {
-
-    .header {
-        background: linear-gradient(360deg, #4E5EFC  ,#4EE7FC);
-    }
     .segment-ios .segment-button{
         line-height: 2rem;
         height: 2.2rem;
@@ -33,8 +29,10 @@ page-media-info {
     .item-ios h2 {
         font-weight: bold;
     }
+    .item-md h2 {
+        font-weight: bold;
+    }
     ion-fab {
-        // position: relative;
         top: 3px;
         .fab{
             width: 40px;

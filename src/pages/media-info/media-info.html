@@ -65,10 +65,11 @@
     <ion-card>
         <ion-item>
             <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':userId}">
-                <img src="assets/imgs/profile.jpg">
+                    <img [src]="config.fileUrl + mediaItem.filename ">
             </ion-avatar>
 
-            <h2>{{authorInfo.username}}</h2>
+            <h2 *ngIf="!authorInfo.username">User ID: {{mediaItem.user_id}}</h2>
+            <h2 *ngIf="authorInfo.username">{{authorInfo.username}}</h2>
             <p>{{mediaItem.time_added | date:'h:mm a, d/M/yy'}}</p>
             <button ion-button item-end outline icon-start (tap)='addToFavourite()' *ngIf="!isLiked">
                 <ion-icon name='star'></ion-icon>Like
@@ -100,7 +101,7 @@
             <ion-segment [(ngModel)]="statistics">
                 <ion-segment-button value="likes" (tap)='showFooter = false'>
                     Likes
-                    <span *ngIf="likesBy.length">({{likesBy.length}})</span>
+                    <span *ngIf="likesByWithoutLogin.length">({{likesByWithoutLogin.length}})</span>
                 </ion-segment-button>
                 <ion-segment-button value="comments" (tap)='showFooter = true'>
                     Comments
@@ -115,13 +116,29 @@
 
         <div [ngSwitch]="statistics" class="statistics">
             <ion-list *ngSwitchCase="'likes'">
-                <ion-item *ngFor="let item of likesBy">
-                    <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':item.user_id}">
-                        <img src="assets/imgs/d2.png">
-                    </ion-avatar>
-                    <h2>{{item.username}}</h2>
-                    <p>{{item.email}}</p>
-                </ion-item>
+                <div *ngIf="likesBy">
+                    <ion-item *ngFor="let item of likesBy">
+                        <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':item.user_id}">
+                            <img src="assets/imgs/d2.png">
+                        </ion-avatar>
+
+                        <h2>{{item.username}}</h2>
+                        <p>{{item.email}}</p>
+                    </ion-item>
+                </div>
+
+                <div *ngIf=" !likesBy.length">
+                    <ion-item *ngFor="let item of likesByWithoutLogin">
+                        <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':item.user_id}">
+                            <img src="assets/imgs/d2.png">
+                        </ion-avatar>
+
+                        <div *ngIf="likesBy">
+                            <h2>User ID: {{item.user_id}}</h2>
+                        </div>
+                    </ion-item>
+                </div>
+
             </ion-list>
 
             <ion-list *ngSwitchCase="'comments'">
@@ -129,7 +146,8 @@
                     <ion-avatar item-start [navPush]='AuthorInfoPage' [navParams]="{'userId':item.user_id}">
                         <img src="assets/imgs/d2.png">
                     </ion-avatar>
-                    <h2>{{item.username}}</h2>
+                    <h2 *ngIf="item.username" >{{item.username}}</h2>
+                    <h2 *ngIf="!item.username" >User ID: {{item.idNumber}}</h2>
                     <p>{{item.comment}}</p>
                     <ion-note item-end>{{item.time_added}}</ion-note>
                 </ion-item>
@@ -141,7 +159,6 @@
                     </ion-avatar>
                     <h2>{{item.username}}</h2>
                     <p>{{item.rating}}</p>
-                    <!--<ion-note item-end>1:12 pm</ion-note> -->
                 </ion-item>
             </ion-list>
         </div>

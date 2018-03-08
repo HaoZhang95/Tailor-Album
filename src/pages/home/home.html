@@ -13,51 +13,54 @@
             </button>
         </ion-buttons>
 
-        <ion-searchbar (tap)="goSearchPage()" clearInput=true ></ion-searchbar>
+        <ion-searchbar (tap)="goSearchPage()" clearInput=true></ion-searchbar>
     </ion-navbar>
-
 </ion-header>
 
-<ion-content class="social-cards">
-    <ion-card *ngFor="let item of list">
-        <ion-item>
-            <ion-avatar item-end [navPush]='AuthorInfoPage' [navParams]="{'userId':item['user_id']}">
-                <img src="assets/imgs/profile.jpg">
-            </ion-avatar>
+<ion-content class="card-background-page">
 
-            <h2 *ngIf="item.username" >{{item.username}}</h2>
-            <p>{{item.time_added | date:'h:mm a, d/M/yy'}}</p>
-        </ion-item>
+    <ion-card *ngFor="let item of list">
 
         <div [navPush]='MediaInfoPage' [navParams]="{'fileId':item['file_id'], 'userId':item['user_id']}">
             <img [src]="config.fileUrl + (item?.filename | thumbnail: 'small')">
-
-            <ion-card-content>
-                <h2>{{item.title}}</h2>
-                <p>{{item.description}}</p>
-            </ion-card-content>
         </div>
 
-        <ion-row>
-            <ion-col>
-                <button ion-button color="primary" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'likes','fileId':item['file_id'], 'userId':item['user_id']}">
-                    <ion-icon name='thumbs-up'></ion-icon>
-                    {{item.likesNum}} Likes
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button color="primary" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'comments','fileId':item['file_id'], 'userId':item['user_id']}">
-                    <ion-icon name='text'></ion-icon>
-                    {{item.commentsNum}} Comments
-                </button>
-            </ion-col>
-            <ion-col align-self-center text-center>
-                <button ion-button color="primary" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'rating','fileId':item['file_id'], 'userId':item['user_id']}">
-                    <ion-icon name='share'></ion-icon>
-                    Rating
-                </button>
-            </ion-col>
-        </ion-row>
+        <div class="card-title">{{item.title}}</div>
 
+
+        <div class="card-subtitle" *ngIf="item.username">By User: {{item.username}}</div>
+        <div class="card-subtitle" *ngIf="!item.username">By User: {{item.user_id}}</div>
+
+        <div class="card-statistic">
+
+            <ion-row>
+                <ion-col>
+                    <button ion-button color="white" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'likes','fileId':item['file_id'], 'userId':item['user_id']}">
+                        <ion-icon name='thumbs-up'></ion-icon>
+                        {{item.likesNum}} Likes
+                    </button>
+                </ion-col>
+                <ion-col>
+                    <button ion-button color="white" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'comments','fileId':item['file_id'], 'userId':item['user_id']}">
+                        <ion-icon name='text'></ion-icon>
+                        {{item.commentsNum}} Comments
+                    </button>
+                </ion-col>
+                <ion-col align-self-center text-center>
+                    <button ion-button color="white" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'rating','fileId':item['file_id'], 'userId':item['user_id']}">
+                        <ion-icon name='share'></ion-icon>
+                        Rating
+                    </button>
+                </ion-col>
+            </ion-row>
+
+
+        </div>
     </ion-card>
+
+    <!-- Pull down to view more -->
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="hasData">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
 </ion-content>

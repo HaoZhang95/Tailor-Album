@@ -4,6 +4,7 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { StorageProvider } from '../../providers/storage/storage';
 import { MediaInfoPage } from '../media-info/media-info';
 import { RegisterPage } from '../register/register';
+import { SearchPage } from '../search/search';
 /**
  * Generated class for the LoginPage page.
  *
@@ -33,7 +34,7 @@ export class LoginPage {
 
     }
 
-    goBack () {
+    goBack() {
         this.navCtrl.pop();
     }
 
@@ -52,6 +53,9 @@ export class LoginPage {
                 switch (this.comeFrom) {
                     case 'order':
                         this.navCtrl.pop();
+                        break;
+                    case 'searchPage':
+                        this.navCtrl.popTo(SearchPage);
                         break;
                     case 'mediaInfo':
                         this.navCtrl.popTo(MediaInfoPage);

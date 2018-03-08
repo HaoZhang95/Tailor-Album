@@ -9,6 +9,7 @@ import { PostTimePipe } from '../../pipes/post-time/post-time';
 import { DatePipe } from '@angular/common';
 import { AlertController } from 'ionic-angular';
 import { AuthorInfoPage } from '../author-info/author-info';
+import { ThumbnailPipe } from '../../pipes/thumbnail/thumbnail';
 
 /**
  * Generated class for the MediaInfoPage page.
@@ -29,8 +30,10 @@ export class MediaInfoPage {
     public mediaItem = [];
     public authorInfo = [];
     public comments = [];
+    public commentsWithoutLogin = [];
     public tags = [];
     public likesBy = [];
+    public likesByWithoutLogin = [];
     public ratingBy = [];
     public comment;
     public tag;
@@ -48,7 +51,7 @@ export class MediaInfoPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public config: ConfigProvider,
         public httpService: HttpServiceProvider, public tools: ToolsProvider, public storage: StorageProvider,
-        public postTimePipe: PostTimePipe, public datePipe: DatePipe, public alertCtrl: AlertController) {
+        public postTimePipe: PostTimePipe, public datePipe: DatePipe, public alertCtrl: AlertController, public thumbnailPipe: ThumbnailPipe) {
 
         this.fileId = this.navParams.get('fileId');
         this.userId = this.navParams.get('userId');
@@ -67,16 +70,15 @@ export class MediaInfoPage {
             this.getUserInfoByUserId(this.userId);
             this.validateIsLiked();
         }
+        this.getLikesData();
+        this.getCommentsById();
+        this.getTags();
+        this.getRatingData();
     }
 
     ionViewDidLoad() {
 
         this.getMediaById();
-        this.getCommentsById();
-
-        this.getTags();
-        this.getLikesData();
-        this.getRatingData();
         this.isOwner = ((this.userinfo && this.userId == this.userinfo['user_id']) ? true : false);
     }
 
@@ -158,14 +160,16 @@ export class MediaInfoPage {
             this.avgRating = ((data.length != 0) ? sumRating / data.length : 0);
 
             this.ratingBy = [];
-            for (let item of data) {
-                let api = '/users/' + item.user_id;
-                this.httpService.doGetWithToken(api).subscribe((data) => {
-                    data.rating = item.rating;
-                    this.ratingBy.unshift(data);
-                }, (err) => {
-                    console.log(err);
-                });
+            if (this.userinfo) {
+                for (let item of data) {
+                    let api = '/users/' + item.user_id;
+                    this.httpService.doGetWithToken(api).subscribe((data) => {
+                        data.rating = item.rating;
+                        this.ratingBy.unshift(data);
+                    }, (err) => {
+                        console.log(err);
+                    });
+                }
             }
         }, (err) => {
             console.log(err);
@@ -173,18 +177,21 @@ export class MediaInfoPage {
     }
 
     getLikesData() {
+
         const api = '/favourites/file/' + this.fileId;
         this.httpService.doGet(api).subscribe((data) => {
             this.likesBy = [];
-            for (let item of data) {
-                let api = '/users/' + item.user_id;
-                this.httpService.doGetWithToken(api).subscribe((data) => {
-                    this.likesBy.push(data);
-                }, (err) => {
-                    console.log(err);
-                });
+            this.likesByWithoutLogin = data
+            if (this.userinfo) {
+                for (let item of data) {
+                    let api = '/users/' + item.user_id;
+                    this.httpService.doGetWithToken(api).subscribe((data) => {
+                        this.likesBy.push(data);
+                    }, (err) => {
+                        console.log(err);
+                    });
+                }
             }
-
         }, (err) => {
             console.log(err);
         });
@@ -328,6 +335,7 @@ export class MediaInfoPage {
         let api = '/comments/file/' + this.fileId;
         this.httpService.doGet(api).subscribe((data) => {
             this.comments = data;
+
             for (let comment of this.comments) {
                 let timeAdded = new Date(comment.time_added);
                 comment.time_added = this.postTimePipe.transform(timeAdded.getTime(), "mediaInfo")
@@ -340,7 +348,7 @@ export class MediaInfoPage {
                         console.log(err);
                     });
                 } else {
-                    comment.username = "Anonymous";
+                    comment.idNumber = comment.user_id;
                 }
 
             }
@@ -364,12 +372,13 @@ export class MediaInfoPage {
             this.httpService.doPostWithToken(api, json).subscribe((data) => {
                 console.log(data);
                 this.getCommentsById();
+                this.getLikesData()
                 this.comment = '';
             }, (err) => {
-                alert(err);
+                console.log(err);
             });
         } else {
-            this.tools.showToast('Comment can not be blank.');
+            this.tools.showToast('Comment can not be empty.');
         }
     }
 }

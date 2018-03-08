@@ -20,28 +20,26 @@
 
 <ion-content>
 
-    <!-- 搜索框没有关键词 -->
+    <!-- Judge if there is a text in search bar -->
     <div class="search_content" *ngIf="!flag">
 
         <div class="hotlist">
-            <h3 class="search_title">热搜</h3>
+            <h3 class="search_title">Trending</h3>
             <p>
-                <span>女装</span>
-                <span>男装</span>
-                <span>家具</span>
-                <span>化妆品</span>
-                <span>女装</span>
-                <span>男装</span>
-                <span>家具</span>
-                <span>化妆品</span>
-                <span>女装</span>
+                <span>Turku</span>
+                <span>Beijing</span>
+                <span>Denver</span>
+                <span>Houston</span>
+                <span>Oslo</span>
+                <span>Budapest</span>
+                <span>Warsaw</span>
             </p>
 
         </div>
 
         <div class="history">
 
-            <h3 class="search_title">历史搜索</h3>
+            <h3 class="search_title">History</h3>
             <ion-list inset *ngFor="let item of historyList">
                 <ion-item (tap)='goSearch(item)' (press)='removeHistory(item)'>
                     {{item}}
@@ -52,23 +50,23 @@
 
     </div>
 
-    <!-- 搜索框有关键词 -->
     <div class="list_content" *ngIf="flag">
 
         <div class="sub_header">
-            <div>综合</div>
-            <div>销量</div>
-            <div>价格</div>
+            <div style="font-weight:bold">Hottest</div>
+            <div style="font-weight:bold">Most Viewed</div>
+            <div style="font-weight:bold">Top Rated</div>
         </div>
 
         <ion-list inset>
-            <ion-item *ngFor="let item of searchList">
+            <ion-item *ngFor="let item of searchList" (click)='toMediaInfoPage(item.file_id, item.user_id)'>
                 <ion-thumbnail item-left>
                     <img [src]="config.fileUrl+item.filename" />
                 </ion-thumbnail>
                 <h2> {{item.title}}</h2>
-                <p>价格:
-                    <span class="price">{{item.description}}</span>元</p>
+                <p>Description:
+                    <span class="price">{{item.description}}</span>
+                </p>
             </ion-item>
         </ion-list>
     </div>

@@ -17,6 +17,11 @@ import { ThumbnailPipe } from '../../pipes/thumbnail/thumbnail';
 export class HomePage {
 
     public list = [];
+    public page = 1;
+    public perPage = 5;
+    public hasData = false;
+    public flag = false;
+
     public likesData = [];
     public commentData = [];
     public MediaInfoPage = MediaInfoPage;
@@ -31,17 +36,53 @@ export class HomePage {
 
     ionViewWillEnter() {
         this.userinfo = this.storage.getItem('userinfo');
-        this.getMediaData();
+        console.log(this.page);
+
+        if (this.page == 1) {
+            this.getMediaData(null);
+        }
     }
 
     goSearchPage() {
         this.navCtrl.push(SearchPage);
     }
 
-    getMediaData() {
-        let api = '/media';
+    doInfinite(infiniteScroll) {
+        setTimeout(() => {
+            this.getMediaData(infiniteScroll);
+            infiniteScroll.complete();
+        }, 500);
+    }
+
+    getMediaData(infiniteScroll) {
+
+        if (!infiniteScroll) {
+            this.page = 1;
+            this.hasData = true;
+        }
+
+        let api = '/media?start=' + (this.page - 1) * this.perPage + '&limit=' + this.perPage;
+        console.log(api);
+
+
         this.httpService.doGet(api).subscribe((data) => {
-            this.list = data;
+
+            if (this.page == 1) {
+                this.list = data;
+            } else {
+                this.list = this.list.concat(data);
+            }
+            this.flag = true;
+            if (infiniteScroll) {
+                infiniteScroll.complete();
+                // 使用波尔值设置html滚动的属性 [ngif]
+                if (data.length < this.perPage) {
+                    this.hasData = false;
+                }
+            }
+            this.page++;
+
+            //this.list = data;
             for (let index = 0; index < data.length; index++) {
                 let fileId = data[index].file_id;
                 const api01 = '/favourites/file/' + fileId;
@@ -74,3 +115,37 @@ export class HomePage {
         });
     }
 }
+
+// this.httpService.doGet(api).subscribe((data) => {
+
+//     this.list = data;
+//     for (let index = 0; index < data.length; index++) {
+//         let fileId = data[index].file_id;
+//         const api01 = '/favourites/file/' + fileId;
+//         this.likesData = [];
+//         this.httpService.doGet(api01).subscribe((data) => {
+//             this.list[index].likesNum = data.length;
+//         }, (err) => {
+//             console.log(err);
+//         });
+
+//         const api02 = '/comments/file/' + fileId;
+//         this.commentData = [];
+//         this.httpService.doGet(api02).subscribe((data) => {
+//             this.list[index].commentsNum = data.length;
+//         }, (err) => {
+//             console.log(err);
+
+//         });
+
+//         const api03 = '/users/' + this.list[index].user_id;
+//         if (this.userinfo) {
+//             this.httpService.doGetWithToken(api03).subscribe((data) => {
+//                 this.list[index].username = data.username;
+//             }, (err) => {
+//                 console.log(err);
+//             });
+//         }
+//     }
+//     console.log(this.list);
+// });
