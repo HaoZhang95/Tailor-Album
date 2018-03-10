@@ -16,27 +16,23 @@
 
 <ion-content>
 
-    <!-- 轮播图,home.css中设置轮播图的样式 pager autoplay='1000' loop='true' -->
-    <!-- src中会加号进行js字符串拼接: http://39.108.159.135/ + response中的图片绝对地址 -->
     <ion-slides *ngIf="slidesList.length>0"  class="home_slides" pager autoplay='1000' loop='true' >
         <ion-slide *ngFor="let item of slidesList" >
-            <img [src]="item">
+            <img [src]="item.url">
         </ion-slide>
     </ion-slides>
 
     <!-- 推荐title和水平滑动div -->
     <!-- ion-scroll光是标签还不行,需要在css中设置宽和高才能动 -->
-    <div class="home_title">精品推荐</div>
+    <div class="home_title">Recommended</div>
     <div class="slide_product">
         <ion-scroll scrollX="true">
             <ul class="clearfix" [ngStyle]="{'width': recListWidth}">
                 <li *ngFor="let item of recList" [navPush]='ProductInfoPage' [navParams]="{'id':item['_id']}">
-                    <!-- <img [src]="config.apiUrl+item.pic">
-                    <p>{{item.title}}</p> -->
 
-                    <img [src]="item" />
-                    <div class="rec_shop_detial">{{item.title}}</div>
-                    <p><span class="price">¥{{item.price}}</span><p>
+                    <img [src]="item.url" />
+                    <div class="rec_shop_detial" style="font-weight:600">{{item.title}}</div>
+                    <p><span class="price">{{item.price}} €</span><p>
 
                 </li>
             </ul>
@@ -44,14 +40,14 @@
     </div>
 
     <!-- 猜你喜欢商品列表-栅格系统 -->
-    <div class="home_title">猜你喜欢</div>
+    <div class="home_title">You may like: </div>
     <div class="hot_shop clearfix">
         <ion-row>
             <ion-col col-6 *ngFor="let item of hotList" [navPush]='ProductInfoPage' [navParams]="{'id':item['_id']}">
 
-                <img [src]="item" />
-                <div class="hot_shop_detail">{{item.title}}</div>
-                <p><span class="price">¥{{item.price}}</span> <span class="old_price">¥{{item.old_price}}</span></p>
+                <img [src]="item.url" />
+                <div class="hot_shop_detail" style="font-weight:600">{{item.title}}</div>
+                <p><span class="price">{{item.price}} €</span> <span class="old_price">{{item.old_price}} €</span></p>
 
             </ion-col>
         </ion-row>

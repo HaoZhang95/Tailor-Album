@@ -35,7 +35,7 @@ export class MediaInfoPage {
     public likesBy = [];
     public likesByWithoutLogin = [];
     public ratingBy = [];
-    public comment;
+    public comment = "";
     public tag;
     public isLiked;
     public showAddIcon = true;

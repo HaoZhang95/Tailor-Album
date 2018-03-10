@@ -59,7 +59,10 @@ export class ToolsProvider {
         let toast = this.toastCtrl.create({
             message: message,
             duration: 3000,
-            position: 'top'
+            position: 'top',
+            showCloseButton:true,
+            closeButtonText:"Close",
+            // cssClass: "background: linear-gradient(360deg, #4E5EFC  ,#4EE7FC)"
         });
 
         toast.onDidDismiss(() => {

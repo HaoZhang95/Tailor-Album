@@ -57,9 +57,11 @@ page-category {
     /*热门商品*/
     .price{
         color:red;
+        font-weight: 600
     }
     .old_price{
         text-decoration: line-through;
+
     }
     .hot_shop ion-col{
         border-top:1px solid #eee;

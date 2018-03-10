@@ -18,38 +18,44 @@ export class CategoryPage {
     public recList = [];
     public slidesList = [];
     public hotList = [];
+    public fakeList01 = [];
     public recListWidth = '';
     // public ProductInfoPage = ProductInfoPage;
 
-    constructor(public navCtrl: NavController,  public navParams: NavParams,) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, ) {
 
+        this.prepareFakeCategoryData();
         this.getHomeSlides();
         this.getRecList();
         this.getHotList();
-        // for (let index = 0; index < 10; index++) {
-        //     this.recList.push({
-        //         pic: 'assets/imgs/0' + index + '.jpg',
-        //         title: '第'+index+'张'
-        //     });
-        // }
-        // this.recListWidth = this.recList.length * 90 + 'px';
     }
 
     getHomeSlides() {
-            this.slidesList = ["assets/imgs/d1.png","assets/imgs/d2.png","assets/imgs/d3.png","assets/imgs/d1.png","assets/imgs/d2.png","assets/imgs/d3.png"];
+        this.slidesList = [
+            { "url": "assets/imgs/frame07.jpg", "price": 9, "old_price": 18, "title": "frame07" },
+            { "url": "assets/imgs/frame08.jpg", "price": 18, "old_price": 29, "title": "frame08" },
+            { "url": "assets/imgs/frame06.jpg", "price": 24, "old_price": 31, "title": "frame06" },
+        ];
     }
 
-    /**
-     * 精品推荐：http://39.108.159.135/api/plist?is_best=1
-     */
     getRecList() {
-            this.recList = ["assets/imgs/d1.png","assets/imgs/d2.png","assets/imgs/d3.png","assets/imgs/d1.png","assets/imgs/d2.png","assets/imgs/d3.png"];;
-            this.recListWidth = this.recList.length * 90 + 'px';
+        this.recList = this.fakeList01;
+        this.recListWidth = this.recList.length * 90 + 'px';
     }
 
-    // 猜你喜欢：http://39.108.159.135/api/plist?is_hot=1
     getHotList() {
-            this.hotList = ["assets/imgs/d1.png","assets/imgs/d2.png","assets/imgs/d3.png","assets/imgs/d1.png","assets/imgs/d2.png","assets/imgs/d3.png"];;
+        this.hotList = this.fakeList01;
+    }
+
+    prepareFakeCategoryData() {
+        this.fakeList01 = [
+            { "url": "assets/imgs/frame01.jpg", "price": 12, "old_price": 18, "title": "frame01" },
+            { "url": "assets/imgs/frame02.jpg", "price": 22, "old_price": 29, "title": "frame02" },
+            { "url": "assets/imgs/frame03.jpg", "price": 43, "old_price": 49, "title": "frame03" },
+            { "url": "assets/imgs/frame04.jpg", "price": 21, "old_price": 29, "title": "frame04" },
+            { "url": "assets/imgs/frame05.jpg", "price": 6, "old_price": 12, "title": "frame05" },
+            { "url": "assets/imgs/frame06.jpg", "price": 24, "old_price": 31, "title": "frame06" },
+        ]
     }
 
 }
