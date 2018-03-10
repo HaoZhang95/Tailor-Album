@@ -1,0 +1,75 @@
+<!--
+  Generated template for the OrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Order</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+    <div class="order">
+        <div class="address_list">
+            <ion-list>
+                <ion-item [navPush]='AddressPage'>
+                    <h2>{{defaultAddress.name}} 　　　{{defaultAddress.phone}}</h2>
+                    <p>{{defaultAddress.address}}</p>
+                    <ion-icon name="md-arrow-round-forward" item-end></ion-icon>
+                </ion-item>
+            </ion-list>
+        </div>
+
+        <div class="product_list">
+            <ion-list>
+                <ion-item *ngFor="let item of orderData">
+                    <ion-thumbnail item-left>
+                        <img [src]="item.product_pic">
+                    </ion-thumbnail>
+                    <h2>{{item.product_title}}</h2>
+                    <p>
+                        <span class="price">{{item.product_price}} €</span>
+                        <span class="count"> x {{item.product_count}}</span>
+                    </p>
+                    <p>Attr：{{item.product_attr}}</p>
+                </ion-item>
+            </ion-list>
+
+            <ion-list inset class="submit_info">
+                <ion-item>
+                    <p>Online Payment</p>
+                    <p>Posti Delivery</p>
+                    <p>Weekdays and weekends can be delivered</p>
+                </ion-item>
+
+                <ion-item-divider></ion-item-divider>
+                <ion-item class="order_price">
+                    <p>Total Price <span>{{allPrice}} €</span></p>
+                    <p>Coupon <span>- 0 €</span></p>
+                    <p>Freight <span>+ 0 €</span></p>
+                </ion-item>
+
+                <ion-item-divider></ion-item-divider>
+                <ion-item>
+                    <input type="text" [(ngModel)]="leaveWord" placeholder="Optional: leave a message for sellers" />
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <div class="order_footer">
+            <span>Final Price: {{allPrice}} €</span>
+            <div class="buy_order" (tap)="goPay()">Submit</div>
+        </div>
+    </ion-toolbar>
+</ion-footer>

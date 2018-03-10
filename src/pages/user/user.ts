@@ -7,6 +7,7 @@ import { PersonalPage } from '../personal/personal';
 import { EditUserPage } from '../edit-user/edit-user';
 import { MyFavouritesPage } from '../my-favourites/my-favourites';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
+import { ToolsProvider } from '../../providers/tools/tools';
 
 /**
  * Generated class for the UserPage page.
@@ -35,7 +36,8 @@ export class UserPage {
     public ratingList = [];
 
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, public httpService: HttpServiceProvider) {
+    constructor(public navCtrl: NavController, public tools: ToolsProvider,
+        public navParams: NavParams, public storage: StorageProvider, public httpService: HttpServiceProvider) {
     }
 
     ionViewDidLoad() {
@@ -46,10 +48,27 @@ export class UserPage {
     ionViewWillEnter() {
         this.userinfo = this.storage.getItem('userinfo');
         this.userinfo = ((this.userinfo && this.userinfo.user.username) ? this.userinfo : null);
+        this.likesNum = null;
+        this.uploadsNum = null;
+        this.ratingNum = null;
+        this.getStatisticsData();
     }
 
     goEditUserPage() {
         this.navCtrl.push((this.userinfo == null ? LoginPage : EditUserPage));
+    }
+
+    goMyFavouritesPage() {
+        if (this.userinfo) {
+            this.navCtrl.push(MyFavouritesPage)
+        } else {
+            this.navCtrl.push(LoginPage);
+            return;
+        }
+    }
+
+    show() {
+        this.tools.showToast("Sorry, not implement yet");
     }
 
     getStatisticsData() {

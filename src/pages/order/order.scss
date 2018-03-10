@@ -1,0 +1,74 @@
+page-order {
+    .order{
+        background: #eee;
+        .address_list{
+            background: #fff;
+            .nologin{
+                text-align: center;
+            }
+        }
+        .product_list{
+            background: #fff;
+            h2{
+                font-size: 1.6rem;
+            }
+            .count{
+                float: right;
+            }
+        }
+        .list-ios {
+            margin: -1px 0 10px;
+        }
+
+
+
+
+    }
+    .order_footer{
+        display: flex;
+        span{
+            flex: 1;
+            display: inline-block;
+            height: 4.4rem;
+            line-height: 4.4rem;
+            text-align: center;
+            color:red;
+            font-size: 1.8rem
+        }
+        .buy_order{
+            width:10rem;
+            height: 4.4rem;
+            line-height: 4.4rem;
+            text-align: center;
+            color: #fff;
+            background: red;
+            font-size: 1.6rem;
+        }
+    }
+
+    .submit_info{
+        ion-item-divider{
+            padding:0px;
+            height: 1rem;
+        }
+        input{
+            width: 99%;
+            height: 9.4rem;
+            line-height: 4.4rem;
+            font-size: 1.8rem;
+            margin-left: 2px;
+        }
+        .order_price {
+            color:#666;
+            font-size: 1.4rem;
+            span{
+                float: right;
+                color:red;
+            }
+            ul {
+                list-style: none
+            }
+        }
+    }
+
+}

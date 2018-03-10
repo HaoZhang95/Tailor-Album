@@ -24,9 +24,10 @@ page-cart {
         dd{
             flex: 1;
             .cart_title{
-                font-size: 1.4rem;
+                font-size: 1.8rem;
                 margin: 0px;
-                padding: .5rem;
+                font-weight: 600;
+                padding: 1rem 0;
             }
             .cart_info {
                 display: flex;
@@ -34,6 +35,7 @@ page-cart {
                 .cart_price{
                     flex: 1;
                     line-height: 2.8rem;
+                    color: #f23030;
                 }
                 .cart_num{
                     width: 100px;
@@ -71,9 +73,15 @@ page-cart {
         }
     }
     .cartSpinner {
-        width: 6rem;
-        height: 6rem;
-        margin: 6rem auto;
+        position:fixed;
+        z-index:9999;
+        top:50%;
+        left:50%;
+        width:350px; /* 按需改变数值 */
+        height:250px; /* 按需改变数值 */
+        margin-top:-125px; /* height数值的一半 */
+        margin-left:-175px; /* width数值的一半 */
+        background:#fff;
     }
 
 }

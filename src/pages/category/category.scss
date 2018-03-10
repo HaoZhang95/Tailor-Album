@@ -57,11 +57,11 @@ page-category {
     /*热门商品*/
     .price{
         color:red;
-        font-weight: 600
+        font-weight: 600;
     }
     .old_price{
         text-decoration: line-through;
-
+        padding-left: 16px;
     }
     .hot_shop ion-col{
         border-top:1px solid #eee;
@@ -74,7 +74,7 @@ page-category {
 
     }
     .hot_shop .hot_shop_detail{
-        height: 3.2rem;
+        // height: 3.2rem;
         overflow: hidden;
     }
     .hot_shop img{

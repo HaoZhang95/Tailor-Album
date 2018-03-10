@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Content } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { ConfigProvider } from '../../providers/config/config';
@@ -29,6 +30,7 @@ export class HomePage {
     public UploadMediaPage = UploadMediaPage;
     public userinfo;
 
+    @ViewChild(Content) content: Content;
     constructor(public navCtrl: NavController, public config: ConfigProvider,
         public httpService: HttpServiceProvider, public storage: StorageProvider, public thumbnailPipe: ThumbnailPipe) {
 
@@ -40,6 +42,34 @@ export class HomePage {
 
         if (this.page == 1) {
             this.getMediaData(null);
+        }
+        console.log(this.list);
+
+        this.updateStatisticData(this.list)
+    }
+
+    updateStatisticData(data) {
+        for (let index = 0; index < data.length; index++) {
+            let fileId = data[index].file_id;
+            const api01 = '/favourites/file/' + fileId;
+            this.likesData = [];
+            this.httpService.doGet(api01).subscribe((data) => {
+                console.log(((this.page-2) * this.perPage) + index + ' : ' + data.length);
+
+                this.list[index].likesNum = data.length;
+            }, (err) => {
+                console.log(err);
+            });
+
+            const api02 = '/comments/file/' + fileId;
+            this.commentData = [];
+            this.httpService.doGet(api02).subscribe((data) => {
+                this.list[index].commentsNum = data.length;
+            }, (err) => {
+                console.log(err);
+
+            });
+
         }
     }
 
@@ -82,13 +112,16 @@ export class HomePage {
             }
             this.page++;
 
-            //this.list = data;
+
             for (let index = 0; index < data.length; index++) {
                 let fileId = data[index].file_id;
                 const api01 = '/favourites/file/' + fileId;
                 this.likesData = [];
                 this.httpService.doGet(api01).subscribe((data) => {
-                    this.list[index].likesNum = data.length;
+                    console.log(((this.page-2) * this.perPage) + index + ' : ' + data.length);
+
+                    let i = ((this.page-2) * this.perPage) + index
+                    this.list[i].likesNum = data.length;
                 }, (err) => {
                     console.log(err);
                 });
@@ -96,7 +129,8 @@ export class HomePage {
                 const api02 = '/comments/file/' + fileId;
                 this.commentData = [];
                 this.httpService.doGet(api02).subscribe((data) => {
-                    this.list[index].commentsNum = data.length;
+                    let i = ((this.page-2) * this.perPage) + index
+                    this.list[i].commentsNum = data.length;
                 }, (err) => {
                     console.log(err);
 
@@ -105,7 +139,8 @@ export class HomePage {
                 const api03 = '/users/' + this.list[index].user_id;
                 if (this.userinfo) {
                     this.httpService.doGetWithToken(api03).subscribe((data) => {
-                        this.list[index].username = data.username;
+                        let i = ((this.page-2) * this.perPage) + index
+                        this.list[i].username = data.username;
                     }, (err) => {
                         console.log(err);
                     });
@@ -116,36 +151,3 @@ export class HomePage {
     }
 }
 
-// this.httpService.doGet(api).subscribe((data) => {
-
-//     this.list = data;
-//     for (let index = 0; index < data.length; index++) {
-//         let fileId = data[index].file_id;
-//         const api01 = '/favourites/file/' + fileId;
-//         this.likesData = [];
-//         this.httpService.doGet(api01).subscribe((data) => {
-//             this.list[index].likesNum = data.length;
-//         }, (err) => {
-//             console.log(err);
-//         });
-
-//         const api02 = '/comments/file/' + fileId;
-//         this.commentData = [];
-//         this.httpService.doGet(api02).subscribe((data) => {
-//             this.list[index].commentsNum = data.length;
-//         }, (err) => {
-//             console.log(err);
-
-//         });
-
-//         const api03 = '/users/' + this.list[index].user_id;
-//         if (this.userinfo) {
-//             this.httpService.doGetWithToken(api03).subscribe((data) => {
-//                 this.list[index].username = data.username;
-//             }, (err) => {
-//                 console.log(err);
-//             });
-//         }
-//     }
-//     console.log(this.list);
-// });

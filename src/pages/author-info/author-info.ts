@@ -4,6 +4,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { ToolsProvider } from '../../providers/tools/tools';
 import { MyFavouritesPage } from '../my-favourites/my-favourites';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the AuthorInfoPage page.
@@ -45,33 +46,44 @@ export class AuthorInfoPage {
     }
 
     getAuthorInfo(userId) {
-        const api = '/users/' + userId;
-        this.httpService.doGetWithToken(api).subscribe((data) => {
-            console.log(data);
-            this.authorInfo = data;
-        }, (err) => {
-            console.log(err);
-        });
+        if (this.userinfo) {
+            const api = '/users/' + userId;
+            this.httpService.doGetWithToken(api).subscribe((data) => {
+                console.log(data);
+                this.authorInfo = data;
+            }, (err) => {
+                console.log(err);
+            });
+        } else {
+            this.navCtrl.push(LoginPage, { 'comeFrom': 'mediaInfo' });
+            return;
+        }
     }
 
     getStatisticsData(userId) {
-        const api = '/media/user/' + userId;
-        this.httpService.doGetWithToken(api).subscribe((data) => {
-            console.log(data);
-            this.uploadsNum = data.length;
-            this.uploads = [];
-            for (let index = 0; index < data.length; index++) {
-                let api = '/media/' + data[index].file_id;
-                this.httpService.doGet(api).subscribe((data) => {
-                    console.log(data);
-                    this.uploads.push(data);
-                }, (err) => {
-                    console.log(err);
+        if (this.userinfo) {
+            const api = '/media/user/' + userId;
+            this.httpService.doGetWithToken(api).subscribe((data) => {
+                console.log(data);
+                this.uploadsNum = data.length;
+                this.uploads = [];
+                for (let index = 0; index < data.length; index++) {
+                    let api = '/media/' + data[index].file_id;
+                    this.httpService.doGet(api).subscribe((data) => {
+                        console.log(data);
+                        this.uploads.push(data);
+                    }, (err) => {
+                        console.log(err);
 
-                });
-            }
-        }, (err) => {
-            console.log(err);
-        });
+                    });
+                }
+            }, (err) => {
+                console.log(err);
+            });
+        } else {
+            this.navCtrl.push(LoginPage, { 'comeFrom': 'mediaInfo' });
+            return;
+        }
+
     }
 }

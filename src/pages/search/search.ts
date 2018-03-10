@@ -7,6 +7,7 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { StorageProvider } from '../../providers/storage/storage';
 import { AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { ToolsProvider } from '../../providers/tools/tools';
 
 /**
  * Generated class for the SearchPage page.
@@ -36,7 +37,7 @@ export class SearchPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public httpService: HttpServiceProvider, public config: ConfigProvider,
-        public storage: StorageProvider, private alertCtrl: AlertController) {
+        public storage: StorageProvider, private alertCtrl: AlertController, public tools: ToolsProvider) {
 
     }
 
@@ -57,6 +58,15 @@ export class SearchPage {
             "comeFrom": "searchPage"
         })
 
+    }
+    showMostViewed() {
+        this.tools.showToast("Sorry, not implemented yet");
+    }
+    showHottest() {
+        this.tools.showToast("Sorry, not implemented yet");
+    }
+    showTopRated() {
+        this.tools.showToast("Sorry, not implemented yet");
     }
 
     getSearchList(infiniteScroll) {

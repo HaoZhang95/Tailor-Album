@@ -23,6 +23,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { MediaInfoPage } from '../pages/media-info/media-info';
 import { SearchPage } from '../pages/search/search';
 import { EditUserPage } from '../pages/edit-user/edit-user';
+import { ProductInfoPage } from './../pages/product-info/product-info';
 import { PostTimePipe } from '../pipes/post-time/post-time';
 import { DatePipe } from '@angular/common';
 import { MyFavouritesPage } from '../pages/my-favourites/my-favourites';
@@ -31,6 +32,9 @@ import { UploadMediaPage } from '../pages/upload-media/upload-media';
 import { Camera } from '@ionic-native/camera';
 import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
 import { CartPage } from '../pages/cart/cart';
+import { OrderPage } from '../pages/order/order';
+import { AddressPage } from '../pages/address/address';
+import { PaymentPage } from '../pages/payment/payment';
 
 @NgModule({
     declarations: [
@@ -49,7 +53,11 @@ import { CartPage } from '../pages/cart/cart';
         AuthorInfoPage,
         UploadMediaPage,
         ThumbnailPipe,
-        CartPage
+        CartPage,
+        ProductInfoPage,
+        OrderPage,
+        AddressPage,
+        PaymentPage
     ],
     imports: [
         BrowserModule,
@@ -76,7 +84,11 @@ import { CartPage } from '../pages/cart/cart';
         MyFavouritesPage,
         AuthorInfoPage,
         UploadMediaPage,
-        CartPage
+        CartPage,
+        ProductInfoPage,
+        OrderPage,
+        AddressPage,
+        PaymentPage
     ],
     providers: [
         StatusBar,

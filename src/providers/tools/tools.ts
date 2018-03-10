@@ -4,7 +4,7 @@ import { ToastController } from 'ionic-angular';
  * 引入camera需要执行两条命令,而不是其中一条,npm和ionic都需要执行
  */
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { StorageProvider } from '../storage/storage';
 
 /*
   Generated class for the ToolsProvider provider.
@@ -15,13 +15,17 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 @Injectable()
 export class ToolsProvider {
 
-    constructor(public toastCtrl: ToastController, private camera: Camera) {
+    constructor(public toastCtrl: ToastController, private camera: Camera, public storage:StorageProvider) {
 
     }
 
 
     uploadFromCamera() {
 
+    }
+
+    getUserInfo() {
+        return this.storage.getItem('userinfo');
     }
 
     uploadFromGallery() {

@@ -1,6 +1,8 @@
 import { StorageProvider } from './../../providers/storage/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ToolsProvider } from '../../providers/tools/tools';
+import { OrderPage } from '../order/order';
 
 /**
  * Generated class for the CartPage page.
@@ -21,7 +23,8 @@ export class CartPage {
     public checkedAll = false;
     public edit = false;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider) {
+    constructor(public navCtrl: NavController, public tools: ToolsProvider,
+        public navParams: NavParams, public storage: StorageProvider) {
     }
 
     ionViewDidLoad() {
@@ -29,11 +32,11 @@ export class CartPage {
     }
 
     ionViewWillEnter() {
-        this.storage.setItem('cartData', [
-            { "product_title": "Title01", "product_pic": "assets/imgs/d1.png", "product_price": 6 ,"checked":false, "product_count":1},
-            { "product_title": "Title02", "product_pic": "assets/imgs/d2.png", "product_price": 7 ,"checked":false, "product_count":2},
-            { "product_title": "Title03", "product_pic": "assets/imgs/d3.png", "product_price": 8 ,"checked":false, "product_count":3}
-        ]);
+        // this.storage.setItem('cartData', [
+        //     { "product_title": "Title01", "product_pic": "assets/imgs/d1.png", "product_price": 6 ,"checked":false, "product_count":1},
+        //     { "product_title": "Title02", "product_pic": "assets/imgs/d2.png", "product_price": 7 ,"checked":false, "product_count":2},
+        //     { "product_title": "Title03", "product_pic": "assets/imgs/d3.png", "product_price": 8 ,"checked":false, "product_count":3}
+        // ]);
         this.getCartData();
     }
 
@@ -101,11 +104,10 @@ export class CartPage {
         console.log(orderData);
         this.storage.setItem('orderData',orderData);
         if (orderData.length > 0) {
-            //this.navCtrl.push(OrderPage);
-            console.log("go to order page ");
+            this.navCtrl.push(OrderPage);
 
         } else {
-            alert('你还没有选中物品.');
+            this.tools.showToast("No item has been selected");
         }
     }
 

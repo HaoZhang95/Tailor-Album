@@ -1,3 +1,8 @@
 .tabs-ios .tabbar {
-    background: transparent;
+
+    background: blue;
+}
+.tabs-icon-top .tabs-positive {
+    background: blue;
+
 }

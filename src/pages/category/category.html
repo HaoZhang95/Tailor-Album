@@ -17,7 +17,7 @@
 <ion-content>
 
     <ion-slides *ngIf="slidesList.length>0"  class="home_slides" pager autoplay='1000' loop='true' >
-        <ion-slide *ngFor="let item of slidesList" >
+        <ion-slide *ngFor="let item of slidesList" [navPush]='ProductInfoPage' [navParams]="{'fid':item['fid']}" >
             <img [src]="item.url">
         </ion-slide>
     </ion-slides>
@@ -28,7 +28,7 @@
     <div class="slide_product">
         <ion-scroll scrollX="true">
             <ul class="clearfix" [ngStyle]="{'width': recListWidth}">
-                <li *ngFor="let item of recList" [navPush]='ProductInfoPage' [navParams]="{'id':item['_id']}">
+                <li *ngFor="let item of recList" [navPush]='ProductInfoPage' [navParams]="{'fid':item['fid']}">
 
                     <img [src]="item.url" />
                     <div class="rec_shop_detial" style="font-weight:600">{{item.title}}</div>
@@ -43,11 +43,11 @@
     <div class="home_title">You may like: </div>
     <div class="hot_shop clearfix">
         <ion-row>
-            <ion-col col-6 *ngFor="let item of hotList" [navPush]='ProductInfoPage' [navParams]="{'id':item['_id']}">
+            <ion-col col-6 *ngFor="let item of hotList" [navPush]='ProductInfoPage' [navParams]="{'fid':item['fid']}">
 
                 <img [src]="item.url" />
-                <div class="hot_shop_detail" style="font-weight:600">{{item.title}}</div>
-                <p><span class="price">{{item.price}} €</span> <span class="old_price">{{item.old_price}} €</span></p>
+                <div class="hot_shop_detail" style="font-weight:600; padding-left:23px;">{{item.title}}</div>
+                <p><span class="price" style="font-weight:600; padding-left:23px;">{{item.price}} €</span> <span class="old_price">{{item.old_price}} €</span></p>
 
             </ion-col>
         </ion-row>

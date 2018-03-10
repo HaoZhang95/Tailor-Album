@@ -18,7 +18,7 @@ import { MediaInfoPage } from '../media-info/media-info';
 })
 export class MyFavouritesPage {
 
-    public list = [];
+    public list;
     public uploads = [];
     public MediaInfoPage = MediaInfoPage;
     public username;
@@ -26,20 +26,20 @@ export class MyFavouritesPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, public config: ConfigProvider,
         public httpService: HttpServiceProvider, public tools: ToolsProvider, ) {
 
-        this.uploads = this.navParams.get('uploads');
-        this.username = this.navParams.get('username');
-        if (this.uploads) {
-            this.list = this.uploads;
-        }
+        // this.uploads = this.navParams.get('uploads');
+        // this.username = this.navParams.get('username');
+        // console.log(this.uploads);
+
+        // if (this.uploads) {
+        //     this.list = this.uploads;
+        // }
     }
 
     ionViewDidLoad() {
     }
 
     ionViewWillEnter() {
-        if (!this.uploads) {
-            this.getMyFavoutites();
-        }
+        this.getMyFavoutites();
     }
     getMyFavoutites() {
         const api = '/favourites';

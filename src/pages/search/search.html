@@ -53,9 +53,9 @@
     <div class="list_content" *ngIf="flag">
 
         <div class="sub_header">
-            <div style="font-weight:bold">Hottest</div>
-            <div style="font-weight:bold">Most Viewed</div>
-            <div style="font-weight:bold">Top Rated</div>
+            <div style="font-weight:bold" (click)="showHottest()">Hottest</div>
+            <div style="font-weight:bold" (click)="showMostViewed()">Most Viewed</div>
+            <div style="font-weight:bold" (click)="showTopRated()">Top Rated</div>
         </div>
 
         <ion-list inset>

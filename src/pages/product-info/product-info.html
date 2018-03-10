@@ -1,0 +1,100 @@
+<!--
+  Generated template for the ProductInfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--
+  Generated template for the ProductInfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-segment [(ngModel)]="topTabs">
+            <ion-segment-button value="intro">
+                General
+            </ion-segment-button>
+            <ion-segment-button value="info">
+                Details
+            </ion-segment-button>
+        </ion-segment>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+    <div class="p_content">
+        <div [ngSwitch]="topTabs">
+            <div class="con_1" *ngSwitchCase="'intro'">
+                <div class="p_img">
+                    <img [src]="list.url" />
+                </div>
+                <div class="p_info mb10">
+                    <div class="p_title">
+                        <h2>{{list.title}}</h2>
+                        <!-- <p>{{list.sub_title}}</p> -->
+                    </div>
+
+                    <div class="product_price mb10">
+                        <span class="now_price">Sale：
+                            <span class="price">{{list.price}} €</span>
+                        </span> 　 　Orig：
+                        <span class="old_price">{{list.old_price}} €</span>
+                    </div>
+                </div>
+                <div class="p_attr mb10">
+                    <!-- 只有当返回的对象中有attr属性的时候才显示,因为有的商品没有attr -->
+                    <!-- #myattr不能喝ngif一起使用,所以在最外面加一个div -->
+                    <div #myattr id="myattr">
+                        <div *ngIf="list.attr">
+                            <div class="color" *ngFor="let attr of list.attr">
+                                <strong>{{attr.cate}}:</strong>
+                                <!-- 默认第一个元素添加acitve的伪类 -->
+                                <span *ngFor="let a of attr.list; let key=index" [ngClass]="{'active': key==0}">
+                                    {{a}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="number">
+                        <strong>Qty:</strong>
+                        <div class="cart_number">
+                            <div class="input_left" (tap)='decNum()'>-</div>
+                            <div class="input_center">
+                                <input type="text" readonly="readonly" [(ngModel)]="num" name="num" id="num" />
+                            </div>
+                            <div class="input_right" (tap)='incNum()'>+</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fee mb10">Ship to: Finland</div>
+            </div>
+
+            <div class="con_2" *ngSwitchCase="'info'">
+                <div class="tips">
+                    <img src="assets/imgs/404.gif" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <div class="footer_bar">
+            <div class="carticon" [navPush]='CartPage'>
+                <ion-icon name="ios-cart" style="line-height:4.4rem"></ion-icon>
+                <ion-badge color="danger">{{cartNum}}</ion-badge>
+            </div>
+            <div class="addcart" (click)='addToCart()'>Add to Cart</div>
+            <div class="buy" [navPush]='CartPage'>Purchase</div>
+        </div>
+    </ion-toolbar>
+</ion-footer>

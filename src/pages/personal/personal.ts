@@ -24,6 +24,7 @@ export class PersonalPage {
         if (this.storage.getItem('userinfo')) {
             this.storage.removeItem('userinfo');
         }
+        this.storage.removeAll();
         this.navCtrl.popToRoot();
     }
 

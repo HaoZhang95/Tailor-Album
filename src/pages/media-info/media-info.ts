@@ -8,7 +8,6 @@ import { LoginPage } from '../login/login';
 import { PostTimePipe } from '../../pipes/post-time/post-time';
 import { DatePipe } from '@angular/common';
 import { AlertController } from 'ionic-angular';
-import { AuthorInfoPage } from '../author-info/author-info';
 import { ThumbnailPipe } from '../../pipes/thumbnail/thumbnail';
 
 /**
@@ -25,6 +24,7 @@ import { ThumbnailPipe } from '../../pipes/thumbnail/thumbnail';
 })
 export class MediaInfoPage {
 
+    public statisticsArray = ["likes", "comments", "rating"];
     public statistics = '';
     public fileId;
     public mediaItem = [];
@@ -40,7 +40,6 @@ export class MediaInfoPage {
     public isLiked;
     public showAddIcon = true;
     public showDeleteTag = false;
-    public AuthorInfoPage = AuthorInfoPage;
     public username;
     public userId;
     public isOwner;
@@ -56,7 +55,9 @@ export class MediaInfoPage {
         this.fileId = this.navParams.get('fileId');
         this.userId = this.navParams.get('userId');
         this.comeFrom = this.navParams.get('comeFrom');
-        this.statistics = ((this.comeFrom) ? this.comeFrom : 'comments');
+        console.log(this.comeFrom);
+
+        this.statistics = ((this.statisticsArray.indexOf(this.comeFrom) != -1) ? this.comeFrom : 'comments');
         this.showFooter = ((this.statistics == 'comments') ? true : false);
 
 
@@ -82,51 +83,62 @@ export class MediaInfoPage {
         this.isOwner = ((this.userinfo && this.userId == this.userinfo['user_id']) ? true : false);
     }
 
-    addRating() {
-        let alert = this.alertCtrl.create();
-        alert.setTitle('Rate this media');
-        alert.addInput({
-            type: 'radio',
-            label: '5',
-            value: '5',
-            checked: true
-        });
-        alert.addInput({
-            type: 'radio',
-            label: '4',
-            value: '4',
-        });
-        alert.addInput({
-            type: 'radio',
-            label: '3',
-            value: '3',
-        });
-        alert.addInput({
-            type: 'radio',
-            label: '2',
-            value: '2',
-        });
-        alert.addInput({
-            type: 'radio',
-            label: '1',
-            value: '1'
-        });
+    share() {
+        this.tools.showToast("Sorry, not implement yet");
+    }
 
-        alert.addButton('Cancel');
-        alert.addButton({
-            text: 'Okay',
-            handler: data => {
-                console.log('Checkbox data:', data * 1);
-                const api = '/ratings';
-                this.httpService.doPostWithToken(api, { 'file_id': this.fileId, 'rating': data * 1 }).subscribe((data) => {
-                    console.log(data);
-                    this.getRatingData();
-                }, (err) => {
-                    this.tools.showToast('Add rating failed. No need to rating once more.');
-                });
-            }
-        });
-        alert.present();
+    addRating() {
+        if (this.userinfo) {
+            let alert = this.alertCtrl.create();
+            alert.setTitle('Rate this media');
+            alert.addInput({
+                type: 'radio',
+                label: '5',
+                value: '5',
+                checked: true
+            });
+            alert.addInput({
+                type: 'radio',
+                label: '4',
+                value: '4',
+            });
+            alert.addInput({
+                type: 'radio',
+                label: '3',
+                value: '3',
+            });
+            alert.addInput({
+                type: 'radio',
+                label: '2',
+                value: '2',
+            });
+            alert.addInput({
+                type: 'radio',
+                label: '1',
+                value: '1'
+            });
+
+            alert.addButton('Cancel');
+            alert.addButton({
+                text: 'Okay',
+                handler: data => {
+                    console.log('Checkbox data:', data * 1);
+                    const api = '/ratings';
+                    this.httpService.doPostWithToken(api, { 'file_id': this.fileId, 'rating': data * 1 }).subscribe((data) => {
+                        console.log(data);
+                        this.getRatingData();
+                    }, (err) => {
+                        this.tools.showToast('Add rating failed. No need to rating once more.');
+                    });
+                }
+            });
+            alert.present();
+        } else {
+            this.navCtrl.push(LoginPage, { 'comeFrom': 'mediaInfo' });
+            return;
+        }
+
+
     }
 
     getUserInfoByUserId(userId) {
@@ -212,40 +224,47 @@ export class MediaInfoPage {
     }
 
     addTag() {
-        let prompt = this.alertCtrl.create({
-            title: 'Add Tag',
-            message: 'Please type tag you want to add to this picture.',
-            inputs: [
-                {
-                    name: 'tag',
-                    placeholder: 'Tag name'
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                    handler: data => {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Confirm',
-                    handler: data => {
-                        if (data.tag.trim() != '') {
-                            const api = '/tags';
-                            this.httpService.doPostWithToken(api, { 'file_id': this.fileId, 'tag': encodeURIComponent(data.tag) }).subscribe((data) => {
-                                this.getTags();
-                            }, (err) => {
-                                console.log(err);
-                            });
-                        } else {
-                            this.tools.showToast('Tag can not be blank.');
+        if (this.userinfo) {
+            let prompt = this.alertCtrl.create({
+                title: 'Add Tag',
+                message: 'Please type tag you want to add to this picture.',
+                inputs: [
+                    {
+                        name: 'tag',
+                        placeholder: 'Tag name'
+                    },
+                ],
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        handler: data => {
+                            console.log('Cancel clicked');
+                        }
+                    },
+                    {
+                        text: 'Confirm',
+                        handler: data => {
+                            if (data.tag.trim() != '') {
+                                const api = '/tags';
+                                this.httpService.doPostWithToken(api, { 'file_id': this.fileId, 'tag': encodeURIComponent(data.tag) }).subscribe((data) => {
+                                    this.getTags();
+                                }, (err) => {
+                                    console.log(err);
+                                });
+                            } else {
+                                this.tools.showToast('Tag can not be blank.');
+                            }
                         }
                     }
-                }
-            ]
-        });
-        prompt.present();
+                ]
+            });
+            prompt.present();
+        } else {
+            this.navCtrl.push(LoginPage, { 'comeFrom': 'mediaInfo' });
+            return;
+        }
+
+
     }
 
     getTags() {
@@ -316,6 +335,7 @@ export class MediaInfoPage {
                     this.getRatingData();
                     break;
                 default:
+                    this.getCommentsById();
                     break;
             }
             refresher.complete();

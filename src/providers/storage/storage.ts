@@ -25,4 +25,8 @@ export class StorageProvider {
         localStorage.removeItem(key);
     }
 
+    removeAll() {
+        localStorage.clear();
+    }
+
 }

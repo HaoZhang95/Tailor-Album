@@ -12,16 +12,16 @@
 
 </ion-header>
 
-<ion-content>
-    <ion-card>
-        <ion-list>
-            <ion-item *ngFor="let item of list" [navPush]='MediaInfoPage' [navParams]="{'fileId':item['file_id'],'userId':item.user_id}">
-                <ion-thumbnail item-start>
-                    <img [src]="config.fileUrl + item.thumbnails['320']">
-                </ion-thumbnail>
-                <h2>{{item.title}}</h2>
-                <p>{{item.description}}</p>
-            </ion-item>
-        </ion-list>
+<ion-content class="card-background-page">
+
+    <ion-card *ngFor="let item of list">
+
+        <div [navPush]='MediaInfoPage' [navParams]="{'fileId':item['file_id'], 'userId':item['user_id']}">
+            <img [src]="config.fileUrl + (item?.filename | thumbnail: 'small')">
+        </div>
+
+        <div class="card-title">{{item.title}}</div>
+        <div class="card-subtitle">By User: {{item.user_id}}</div>
+
     </ion-card>
 </ion-content>
