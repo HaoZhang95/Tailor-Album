@@ -11,6 +11,7 @@ page-media-info {
     }
     .text-input-ios{
         margin: 11px 8px;
+        color: white;
     }
     .statistics{
         ion-note {
@@ -26,25 +27,30 @@ page-media-info {
             border-radius: 10px;
         }
     }
-    .item-ios h2 {
-        font-weight: bold;
+    .cord-ios h2 {
+        font-weight: bold !important;
+        font-size: 1.4rem;
+    }
+    .cord-ios p {
+        font-size: 1.2rem;
+
     }
     .item-md h2 {
         font-weight: bold;
     }
     ion-fab {
-        top: 3px;
+        top: 8px;
         .fab{
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
         }
         .fab-close-icon {
-            line-height: 40px;
+            line-height: 30px;
         }
         ion-fab-list{
-            min-width: 40px;
-            min-height: 40px;
+            min-width: 30px;
+            min-height: 30px;
         }
     }
     .chips{
@@ -79,12 +85,20 @@ page-media-info {
         visibility: hidden;
     }
     .card-content-ios {
-        padding: 0px 16px 14px;
+        padding: 0px 16px;
         font-size: 1.4rem;
         line-height: 1.4;
+
+        h2 {
+            font-weight: 700;
+        }
     }
     .addIcon{
         right: 60px !important;
+    }
+
+    ion-app.ios {
+        padding: 0 16px 8px 16px !important;
     }
 
 

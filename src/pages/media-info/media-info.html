@@ -25,9 +25,6 @@
                 <button ion-fab (click)="share()">
                     <ion-icon name="logo-vimeo"></ion-icon>
                 </button>
-                <button ion-fab (click)="share()">
-                    <ion-icon name="logo-googleplus"></ion-icon>
-                </button>
             </ion-fab-list>
         </ion-fab>
 
@@ -66,11 +63,11 @@
             <h2 *ngIf="!authorInfo.username">User ID: {{mediaItem.user_id}}</h2>
             <h2 *ngIf="authorInfo.username">{{authorInfo.username}}</h2>
             <p>{{mediaItem.time_added | date:'h:mm a, d/M/yy'}}</p>
-            <button ion-button item-end outline icon-start (tap)='addToFavourite()' *ngIf="!isLiked">
+            <button ion-button item-end outline icon-start (click)='addToFavourite()' *ngIf="!isLiked">
                 <ion-icon name='star'></ion-icon>Like
             </button>
 
-            <button ion-button item-end icon-start (tap)='cancelFavourite()' *ngIf="isLiked">
+            <button ion-button item-end icon-start (click)='cancelFavourite()' *ngIf="isLiked">
                 <ion-icon name='star'></ion-icon>Liked
             </button>
         </ion-item>
@@ -94,15 +91,15 @@
 
         <div padding>
             <ion-segment [(ngModel)]="statistics">
-                <ion-segment-button value="likes" (tap)='showFooter = false'>
+                <ion-segment-button value="likes" (click)='showFooter = false'>
                     Likes
                     <span *ngIf="likesByWithoutLogin.length">({{likesByWithoutLogin.length}})</span>
                 </ion-segment-button>
-                <ion-segment-button value="comments" (tap)='showFooter = true'>
+                <ion-segment-button value="comments" (click)='showFooter = true'>
                     Comments
                     <span *ngIf="comments.length">({{comments.length}})</span>
                 </ion-segment-button>
-                <ion-segment-button value="rating" (tap)='showFooter = false'>
+                <ion-segment-button value="rating" (click)='showFooter = false'>
                     Rating
                     <span *ngIf="avgRating">({{avgRating}}/5)</span>
                 </ion-segment-button>

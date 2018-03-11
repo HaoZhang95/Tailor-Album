@@ -5,6 +5,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 import { MediaInfoPage } from '../media-info/media-info';
 import { RegisterPage } from '../register/register';
 import { SearchPage } from '../search/search';
+import { UploadMediaPage } from '../upload-media/upload-media';
 /**
  * Generated class for the LoginPage page.
  *
@@ -59,6 +60,9 @@ export class LoginPage {
                         break;
                     case 'mediaInfo':
                         this.navCtrl.popTo(MediaInfoPage);
+                        break;
+                    case 'uploadPage':
+                        this.navCtrl.popTo(UploadMediaPage);
                         break;
                     default:
                         this.navCtrl.popToRoot();

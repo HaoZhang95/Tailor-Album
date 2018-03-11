@@ -29,12 +29,15 @@ import { DatePipe } from '@angular/common';
 import { MyFavouritesPage } from '../pages/my-favourites/my-favourites';
 import { AuthorInfoPage } from '../pages/author-info/author-info';
 import { UploadMediaPage } from '../pages/upload-media/upload-media';
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
 import { CartPage } from '../pages/cart/cart';
 import { OrderPage } from '../pages/order/order';
 import { AddressPage } from '../pages/address/address';
 import { PaymentPage } from '../pages/payment/payment';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { MyUploadsPage } from './../pages/my-uploads/my-uploads';
 
 @NgModule({
     declarations: [
@@ -57,7 +60,8 @@ import { PaymentPage } from '../pages/payment/payment';
         ProductInfoPage,
         OrderPage,
         AddressPage,
-        PaymentPage
+        PaymentPage,
+        MyUploadsPage
     ],
     imports: [
         BrowserModule,
@@ -88,7 +92,8 @@ import { PaymentPage } from '../pages/payment/payment';
         ProductInfoPage,
         OrderPage,
         AddressPage,
-        PaymentPage
+        PaymentPage,
+        MyUploadsPage
     ],
     providers: [
         StatusBar,
@@ -101,6 +106,8 @@ import { PaymentPage } from '../pages/payment/payment';
         PostTimePipe,
         DatePipe,
         Camera,
+        File,
+        FileTransfer,
         ThumbnailPipe
     ]
 })

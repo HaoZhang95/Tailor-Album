@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>uploadMedia</ion-title>
+        <ion-title>Upload</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -74,26 +74,20 @@
         </div>
 
         <ion-card-content style="display:flex">
-            <ion-icon name="contact" style="color: #55acee"></ion-icon>
-            <strong color="#55acee">Media title:</strong>
-            <ion-input type="text" name="title" clearInput=true placeholder="Title here" required></ion-input>
+            <ion-icon name="ios-aperture-outline" style="color: #55acee"></ion-icon>
+            <strong color="#55acee">Title:</strong>
+            <ion-input type="text" name="title" [(ngModel)]="media.title" clearInput=true required></ion-input>
         </ion-card-content>
 
         <ion-card-content>
-            <ion-icon name="contact" style="color: #d03e84"></ion-icon>
-            <strong color="#d03e84">Media description:</strong>
-            <ion-textarea placeholder="Enter a description"></ion-textarea>
+            <ion-icon name="ios-bookmark-outline" style="color: #d03e84"></ion-icon>
+            <strong color="#d03e84">Description:</strong>
+            <ion-textarea placeholder="Enter a description" [(ngModel)]="media.description"></ion-textarea>
         </ion-card-content>
     </ion-card>
 
 
-    <!-- <form (submit)="uploadMedia()">
-            <ion-input type="file" name="file" (change)="setFile($event)"></ion-input>
-
-        </form> -->
-
-
-    <button ion-button (click)="uploadMedia()" class="uploadBtn" block>
+    <button ion-button (click)="doCameraUpload()" class="uploadBtn" block>
         Upload
         <ion-icon name="md-cloud-upload" style="font-size:2.4rem; padding-left:10px;"></ion-icon>
     </button>

@@ -32,6 +32,7 @@ export class SearchPage {
     public userinfo;
 
     public historyList;
+    public hotList = ["Turku","Beijing","Denver","Houston","Oslo","Budapest","Warsaw"];
 
     @ViewChild(Content) content: Content;
 

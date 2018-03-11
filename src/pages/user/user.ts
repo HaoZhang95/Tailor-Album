@@ -8,6 +8,7 @@ import { EditUserPage } from '../edit-user/edit-user';
 import { MyFavouritesPage } from '../my-favourites/my-favourites';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { ToolsProvider } from '../../providers/tools/tools';
+import { MyUploadsPage } from '../my-uploads/my-uploads';
 
 /**
  * Generated class for the UserPage page.
@@ -28,6 +29,7 @@ export class UserPage {
     public PersonalPage = PersonalPage;
     public EditUserPage = EditUserPage;
     public MyFavouritesPage = MyFavouritesPage;
+    public MyUploadsPage = MyUploadsPage;
     public userinfo = null;
 
     public likesNum = 0;
@@ -61,6 +63,14 @@ export class UserPage {
     goMyFavouritesPage() {
         if (this.userinfo) {
             this.navCtrl.push(MyFavouritesPage)
+        } else {
+            this.navCtrl.push(LoginPage);
+            return;
+        }
+    }
+    goMyUploadsPage() {
+        if (this.userinfo) {
+            this.navCtrl.push(MyUploadsPage)
         } else {
             this.navCtrl.push(LoginPage);
             return;

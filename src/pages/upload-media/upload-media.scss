@@ -29,9 +29,16 @@ page-upload-media {
               margin: 9px 10px 0px 0px;
           }
       }
+      .card-ios {
+        margin: 0px;
+        border-radius: 2px;
+        width: 100%;
+        font-size: 1.4rem;
+        background: #fff;
+    }
 
     .uploadBtn{
-        width: 80%;
+        width: 100%;
         margin: 0px auto;
     }
 

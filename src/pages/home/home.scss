@@ -7,9 +7,17 @@
       text-align: center;
       border-radius: 8px;
 
+
       img {
-          height: 250px;
+          height: 200px;
       }
+    }
+    .card-ios {
+        margin: 5px;
+        border-radius: 2px;
+        width: 97%;
+        font-size: 1.4rem;
+        background: #fff;
     }
 
     .card-title {
@@ -33,9 +41,8 @@
       font-size: 1.0em;
       position: absolute;
       top: 80%;
-      width: 100%;
+      width: 130%;
       color: #fff;
       font-weight: 600;
     }
-
   }

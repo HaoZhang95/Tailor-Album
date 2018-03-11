@@ -26,13 +26,14 @@
         <div class="hotlist">
             <h3 class="search_title">Trending</h3>
             <p>
-                <span>Turku</span>
+                <span *ngFor="let item of hotList" (click)="goSearch(item)">{{item}}</span>
+                <!-- <span>Turku</span>
                 <span>Beijing</span>
                 <span>Denver</span>
                 <span>Houston</span>
                 <span>Oslo</span>
                 <span>Budapest</span>
-                <span>Warsaw</span>
+                <span>Warsaw</span> -->
             </p>
 
         </div>
@@ -58,6 +59,10 @@
             <div style="font-weight:bold" (click)="showTopRated()">Top Rated</div>
         </div>
 
+        <div class="searchStyle" *ngIf="searchList.length == 0">
+            <img src="assets/imgs/404.gif" alt="">
+        </div>
+
         <ion-list inset>
             <ion-item *ngFor="let item of searchList" (click)='toMediaInfoPage(item.file_id, item.user_id)'>
                 <ion-thumbnail item-left>
@@ -72,8 +77,7 @@
     </div>
 
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="hasData">
-        <ion-infinite-scroll-content  loadingSpinner="bubbles"
-        loadingText="Loading more data..."></ion-infinite-scroll-content>
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
 </ion-content>
