@@ -54,7 +54,7 @@ export class HomePage {
             const api01 = '/favourites/file/' + fileId;
             this.likesData = [];
             this.httpService.doGet(api01).subscribe((data) => {
-                console.log(((this.page-2) * this.perPage) + index + ' : ' + data.length);
+                console.log(((this.page - 2) * this.perPage) + index + ' : ' + data.length);
 
                 this.list[index].likesNum = data.length;
             }, (err) => {
@@ -91,7 +91,8 @@ export class HomePage {
             this.hasData = true;
         }
 
-        let api = '/media?start=' + (this.page - 1) * this.perPage + '&limit=' + this.perPage;
+        // let api = '/media?start=' + (this.page - 1) * this.perPage + '&limit=' + this.perPage;
+        let api = '/tags/TilorAlbum'
         console.log(api);
 
 
@@ -99,6 +100,16 @@ export class HomePage {
 
             if (this.page == 1) {
                 this.list = data;
+
+                let res = [];
+                for (var i = 0, len = this.list.length; i < len; i++) {
+                    var j = Math.floor(Math.random() * this.list.length);
+                    res[i] = this.list[j];
+                    this.list.splice(j, 1);
+                }
+
+                this.list = res
+
             } else {
                 this.list = this.list.concat(data);
             }
@@ -118,9 +129,9 @@ export class HomePage {
                 const api01 = '/favourites/file/' + fileId;
                 this.likesData = [];
                 this.httpService.doGet(api01).subscribe((data) => {
-                    console.log(((this.page-2) * this.perPage) + index + ' : ' + data.length);
+                    console.log(((this.page - 2) * this.perPage) + index + ' : ' + data.length);
 
-                    let i = ((this.page-2) * this.perPage) + index
+                    let i = ((this.page - 2) * this.perPage) + index
                     this.list[i].likesNum = data.length;
                 }, (err) => {
                     console.log(err);
@@ -129,7 +140,7 @@ export class HomePage {
                 const api02 = '/comments/file/' + fileId;
                 this.commentData = [];
                 this.httpService.doGet(api02).subscribe((data) => {
-                    let i = ((this.page-2) * this.perPage) + index
+                    let i = ((this.page - 2) * this.perPage) + index
                     this.list[i].commentsNum = data.length;
                 }, (err) => {
                     console.log(err);
@@ -139,7 +150,7 @@ export class HomePage {
                 const api03 = '/users/' + this.list[index].user_id;
                 if (this.userinfo) {
                     this.httpService.doGetWithToken(api03).subscribe((data) => {
-                        let i = ((this.page-2) * this.perPage) + index
+                        let i = ((this.page - 2) * this.perPage) + index
                         this.list[i].username = data.username;
                     }, (err) => {
                         console.log(err);

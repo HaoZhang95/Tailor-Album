@@ -34,19 +34,19 @@
         <div class="card-statistic">
 
             <ion-row>
-                <ion-col>
+                <ion-col style="margin-left:20px">
                     <button ion-button color="white" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'likes','fileId':item['file_id'], 'userId':item['user_id']}">
                         <ion-icon name='thumbs-up'></ion-icon>
                         {{item.likesNum}} Likes
                     </button>
                 </ion-col>
-                <ion-col>
+                <ion-col style="margin-left:20px">
                     <button ion-button color="white" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'comments','fileId':item['file_id'], 'userId':item['user_id']}">
                         <ion-icon name='text'></ion-icon>
                         {{item.commentsNum}} Comments
                     </button>
                 </ion-col>
-                <ion-col align-self-center text-center>
+                <ion-col style="margin-left:20px">
                     <button ion-button color="white" clear small icon-start [navPush]='MediaInfoPage' [navParams]="{'comeFrom':'rating','fileId':item['file_id'], 'userId':item['user_id']}">
                         <ion-icon name='share'></ion-icon>
                         Rating

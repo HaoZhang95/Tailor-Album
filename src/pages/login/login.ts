@@ -44,35 +44,31 @@ export class LoginPage {
     }
 
     doLogin() {
-        if (this.userinfo.username.length < 6) {
-            alert('Wrong format.');
-        } else {
-            let api = '/login';
-            this.httpService.doPost(api, this.userinfo).subscribe((data) => {
-                this.storage.setItem('userinfo', data);
+        let api = '/login';
+        this.httpService.doPost(api, this.userinfo).subscribe((data) => {
+            this.storage.setItem('userinfo', data);
 
-                switch (this.comeFrom) {
-                    case 'order':
-                        this.navCtrl.pop();
-                        break;
-                    case 'searchPage':
-                        this.navCtrl.popTo(SearchPage);
-                        break;
-                    case 'mediaInfo':
-                        this.navCtrl.popTo(MediaInfoPage);
-                        break;
-                    case 'uploadPage':
-                        this.navCtrl.popTo(UploadMediaPage);
-                        break;
-                    default:
-                        this.navCtrl.popToRoot();
-                        break;
-                }
-            }, (err) => {
-                console.log(err);
+            switch (this.comeFrom) {
+                case 'order':
+                    this.navCtrl.pop();
+                    break;
+                case 'searchPage':
+                    this.navCtrl.popTo(SearchPage);
+                    break;
+                case 'mediaInfo':
+                    this.navCtrl.popTo(MediaInfoPage);
+                    break;
+                case 'uploadPage':
+                    this.navCtrl.popTo(UploadMediaPage);
+                    break;
+                default:
+                    this.navCtrl.popToRoot();
+                    break;
+            }
+        }, (err) => {
+            console.log(err);
 
-            })
-        }
+        })
     }
 
 }
