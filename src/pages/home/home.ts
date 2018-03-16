@@ -91,8 +91,12 @@ export class HomePage {
             this.hasData = true;
         }
 
-        // let api = '/media?start=' + (this.page - 1) * this.perPage + '&limit=' + this.perPage;
-        let api = '/tags/TilorAlbum'
+        /*
+         * pagination
+         */
+
+        let api = '/media?start=' + (this.page - 1) * this.perPage + '&limit=' + this.perPage;
+        // let api = '/tags/TilorAlbum'
         console.log(api);
 
 

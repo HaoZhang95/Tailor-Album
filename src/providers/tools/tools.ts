@@ -19,11 +19,6 @@ export class ToolsProvider {
 
     }
 
-
-    uploadFromCamera() {
-
-    }
-
     getUserInfo() {
         return this.storage.getItem('userinfo');
     }
@@ -36,27 +31,7 @@ export class ToolsProvider {
             quality: 100,
             targetWidth: 1000,
             targetHeight: 1000
-
-            // 官方文档
-            // quality: 100,
-            // destinationType: this.camera.DestinationType.DATA_URL,
-            // encodingType: this.camera.EncodingType.JPEG,
-            // mediaType: this.camera.MediaType.PICTURE
-
-            // github
-            // allowEdit: false,
-            // saveToPhotoAlbum: true,
-            // targetWidth: 720,
-            // targetHeight: 720,
-            // cameraDirection: this.camera.Direction.BACK,
-            // sourceType: this.camera.PictureSourceType.CAMERA,
-            // destinationType: this.camera.DestinationType.FILE_URI,
         }
-        // this.camera.getPicture(cameraOptions)
-        //     .then(file_uri => {
-        //         this.mediaSrc = file_uri
-        //     },
-        //     err => console.log(err));
     }
 
     showToast(message) {
@@ -66,7 +41,6 @@ export class ToolsProvider {
             position: 'top',
             showCloseButton:true,
             closeButtonText:"Close",
-            // cssClass: "background: linear-gradient(360deg, #4E5EFC  ,#4EE7FC)"
         });
 
         toast.onDidDismiss(() => {

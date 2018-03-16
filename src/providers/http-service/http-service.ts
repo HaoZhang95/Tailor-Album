@@ -36,9 +36,6 @@ export class HttpServiceProvider {
         return this.http.post(apiUrl, JSON.stringify(json), { headers: this.headers }).map((resp) => resp.json());
     }
 
-    /**
-     * 第二个参数json, 有的情况下直接json原格式,有的需要JSON.stringify,看情况
-     */
     doPostWithToken(api, json) {
         const apiUrl = this.config.baseUrl + api;
         const headers = new Headers({ 'x-access-token': this.storage.getItem('userinfo').token })
