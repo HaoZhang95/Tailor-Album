@@ -23,7 +23,7 @@ For further development, this app currently using server and APIs provided by He
 #### Upload, Comment, Like 
 #### Simulate purchase process --- product info, add to cart, order detauils and so on
 #### Search by title
-#### And more...
+#### And more......
 
 ## Screenshots
 |                    LOGIN                     |                  SEARCH               |     
